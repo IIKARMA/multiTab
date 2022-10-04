@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 
 import { connect, useDispatch } from "react-redux";
 import { getInfo } from "../../../redux/reducers/tasksReducer";
+
 import { useNavigation } from "@react-navigation/native";
-import ItemList from "../";
 import { LogBox } from "react-native";
+
+import ItemList from "../";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",

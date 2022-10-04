@@ -48,4 +48,5 @@ export const createTask = (payload) => async (dispatch) => {
     await AsyncStorage.setItem(`@tasks`, JSON.stringify(jsonTask));
     dispatch(setTask(jsonTask));
   }
+  dispatch(getInfo("tasks"));
 };

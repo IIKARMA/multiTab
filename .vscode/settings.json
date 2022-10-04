@@ -1,7 +1,11 @@
 {
     "cSpell.words": [
         "Board",
+        "card",
+        "Icons",
         "Reducer",
-        "reducers"
+        "reducers",
+        "theme",
+        "Touchable"
     ]
 }

@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   Keyboard,
   Text,
+  KeyboardAvoidingView,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Icon, IconButton, Box, NativeBaseProvider } from "native-base";
@@ -17,6 +19,7 @@ const icons = [
   { name: "calendar-clock", id: 2 },
   { name: "palette", id: 3 },
 ];
+import { styles } from "./styles";
 import { theme } from "../../core/colors";
 
 const MyTextInput = ({ createTask, navigation }) => {
@@ -44,103 +47,66 @@ const MyTextInput = ({ createTask, navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View
-        style={{
-          height: "100%",
-          padding: 10,
-        }}>
-        <View
-          style={{
-            flex: 0.5,
-            backgroundColor: theme.card,
-            padding: 10,
-            borderRadius: 10,
-          }}>
-          <TextInput
-            keyboardAppearance='dark'
-            autoFocus={true}
-            value={headerText}
-            onChangeText={(value) => setHeaderText(value)}
-            placeholderTextColor={"#fff"}
-            placeholder={"Название"}
-            style={{
-              opacity: 0.4,
-              fontSize: 16,
-              paddingBottom: 10,
-              color: "#fff",
-            }}
-          />
-          <TextInput
-            keyboardAppearance='dark'
-            textBreakStrategy='highQuality'
-            value={text}
-            onChangeText={(value) => setText(value)}
-            placeholderTextColor={"#fff"}
-            placeholder={"Описание"}
-            style={{
-              paddingTop: 10,
-              paddingBottom: 20,
-              fontSize: 16,
-              opacity: 0.4,
-              color: "#fff",
-            }}
-          />
-          {completed && (
-            <TouchableOpacity
-              style={{
-                position: "absolute",
-                bottom: 10,
-                backgroundColor: theme.secondText,
-                width: "95%",
-                alignSelf: "center",
-                marginBottom: 10,
-                borderRadius: 10,
-              }}
-              onPress={createNewTask}>
-              <Text style={{ padding: 3, textAlign: "center" }}>Готово</Text>
-            </TouchableOpacity>
-          )}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <View style={styles.container}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              keyboardAppearance='dark'
+              autoFocus={true}
+              value={headerText}
+              onChangeText={(value) => setHeaderText(value)}
+              placeholderTextColor={theme.text}
+              placeholder={"Название"}
+              style={styles.textInput}
+            />
+            <TextInput
+              textBreakStrategy='highQuality'
+              keyboardAppearance='dark'
+              value={text}
+              onChangeText={(value) => setText(value)}
+              placeholderTextColor={theme.secondText}
+              placeholder={"Описание"}
+              style={styles.textInput}
+            />
+            {completed && (
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={createNewTask}>
+                <Text style={{ padding: 3, textAlign: "center" }}>Готово</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View style={styles.additionalBar}>
+            <NativeBaseProvider>
+              <Box style={styles.box}>
+                {icons.map((value) => (
+                  <IconButton
+                    key={value.id.toString()}
+                    mb='4'
+                    variant='solid'
+                    bg='blueGray.600'
+                    colorScheme='coolGray'
+                    borderRadius='md'
+                    icon={
+                      <Icon
+                        as={MaterialCommunityIcons}
+                        size='8'
+                        name={value.name}
+                        _dark={{
+                          color: "warmGray.50",
+                        }}
+                        color='warmGray.50'
+                      />
+                    }
+                  />
+                ))}
+              </Box>
+            </NativeBaseProvider>
+          </View>
         </View>
-        <View
-          style={{
-            alignSelf: "center",
-            marginTop: 10,
-            flexDirection: "row",
-            width: "50%",
-          }}>
-          <NativeBaseProvider>
-            <Box
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}>
-              {icons.map((value) => (
-                <IconButton
-                  key={value.id.toString()}
-                  mb='4'
-                  variant='solid'
-                  bg='blueGray.600'
-                  colorScheme='coolGray'
-                  borderRadius='md'
-                  icon={
-                    <Icon
-                      as={MaterialCommunityIcons}
-                      size='8'
-                      name={value.name}
-                      _dark={{
-                        color: "warmGray.50",
-                      }}
-                      color='warmGray.50'
-                    />
-                  }
-                />
-              ))}
-            </Box>
-          </NativeBaseProvider>
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
 export default MyTextInput;
-const styles = StyleSheet.create({});

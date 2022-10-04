@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, View, TouchableOpacity, Keyboard } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import { MainScreen, NewTask } from "../screens/";
 import {
   createStackNavigator,
@@ -41,6 +47,12 @@ const HomeNavigator = () => {
         component={NewTask}
         name='NewTask'
         options={{
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: theme.background,
+          },
           title: "Добавить заметку",
           headerLeft: () => (
             <View style={{ alignItems: "center", flexDirection: "row" }}>
