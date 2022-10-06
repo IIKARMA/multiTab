@@ -3,6 +3,8 @@
         "Board",
         "card",
         "Icons",
+        "Modalize",
+        "Pressable",
         "Reducer",
         "reducers",
         "theme",

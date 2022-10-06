@@ -11,8 +11,8 @@ import ItemList from "../";
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
-const mapStateToProps = ({ task }) => ({
-  task: task,
+const mapStateToProps = ({ tasks }) => ({
+  task: tasks,
 });
 
 export default connect(mapStateToProps, { getInfo })(({ task }) => {

@@ -44,16 +44,17 @@ const HomeNavigator = () => {
       }}>
       <Screen component={MainScreen} name='Home' options={{}} />
       <Screen
+        initialParams={{ id: 2 }}
         component={NewTask}
         name='NewTask'
-        options={{
+        options={({ route }) => ({
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
             backgroundColor: theme.background,
           },
-          title: "Добавить заметку",
+          title: route.params.title,
           headerLeft: () => (
             <View style={{ alignItems: "center", flexDirection: "row" }}>
               <NativeBaseProvider>
@@ -88,7 +89,7 @@ const HomeNavigator = () => {
           //       </TouchableOpacity>
           //     </View>
           //   ),
-        }}
+        })}
       />
     </Navigator>
   );

@@ -3,6 +3,7 @@ import { theme } from "../../core/colors";
 
 export const styles = StyleSheet.create({
   container: {
+    backfaceVisibility: "visible",
     alignSelf: "center",
     backgroundColor: theme.card,
     borderRadius: 20,
@@ -10,6 +11,7 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
     width: "90%",
   },
+
   headerContainer: {
     paddingHorizontal: 5,
     flexDirection: "row",
@@ -44,7 +46,6 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     height: 140,
     width: 160,
-    padding: 10,
   },
   nameItem: {
     color: theme.text,

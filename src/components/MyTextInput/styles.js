@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     width: "50%",
   },
   box: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },

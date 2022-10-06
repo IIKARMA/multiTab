@@ -2184,6 +2184,11 @@
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+"@react-native-community/blur@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/blur/-/blur-4.2.0.tgz#f100d0ba220ecfed26be3c0ad2ceffa5eee17533"
+  integrity sha512-StgP5zQJOCHqDRjmcKnzVkJ920S6DYBKRJfigSUnlkNQp+HzZtVtyKq0j5a7x84NtHcV7j8Uy5mz1Lx9ZKRKfA==
+
 "@react-native-community/cli-clean@^8.0.4":
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-8.0.4.tgz#97e16a20e207b95de12e29b03816e8f2b2c80cc7"
@@ -2363,6 +2368,11 @@
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@react-native-community/progress-view/-/progress-view-1.3.2.tgz#0b9264e07c66362d176841fdf7f5a9d1f5914370"
   integrity sha512-2i8aAIl4Nu9kwd189LXPJd3yjlu9Snn97zhEAGF9UXlIOWUXOCSS0cwZHIywu1/x+VFlzwuXFL+I7WVdHw+FtQ==
+
+"@react-native-menu/menu@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@react-native-menu/menu/-/menu-0.5.3.tgz#c2af1217c5e6a1cdccb3c1cb33ac3a470fb486c7"
+  integrity sha512-iiYNZ+unVElwsLelySUNovWwZNNdb9KcDXV+bYx/d3T/l3k2jeRoc4teIGYPhieKWW8u/fArzEsOLB1sGyeo6Q==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -10671,10 +10681,10 @@ react-native-modalfy@3.3.1:
     react-is "^17.0.2"
     use-memo-one "^1.1.2"
 
-react-native-modalize@2.0.13:
-  version "2.0.13"
-  resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-2.0.13.tgz#51517cddd726ddbc19c080d15e7721ade4ee7a66"
-  integrity sha512-BMJlpTnpeDVp5LbbE6kdO+3+yLzowRvPgcIu1QCCM+//uY7oON4VcL8ISilSgAfOYeNQc6vhaD5chVtmpTl/dw==
+react-native-modalize@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-2.1.1.tgz#dcb67d208f4c5bdc76f45075e727be43fd008561"
+  integrity sha512-4/7EZWsrUqAAkkAVEnOsSdpAPQaEBewX7TvwFuzgvGDzxKpq3O58I9SnSeU8QtG/r91XYHJNaU5dAuDrcLjUaQ==
 
 react-native-neomorph-shadows@1.1.2:
   version "1.1.2"
@@ -10697,6 +10707,11 @@ react-native-popup-menu@^0.16.1:
   version "0.16.1"
   resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.16.1.tgz#b1bb56be5c0838bbc2f532af7b1f554b7ceef566"
   integrity sha512-xRS7mRh0exwu7Iw8PPVHdM11d13A/KzYjy0/fZx3zVtxISxPkNaDGayau6oa7HqO3Nj0oS9ulFCYjcQfG6vahA==
+
+react-native-portalize@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-portalize/-/react-native-portalize-1.0.7.tgz#8b3c742a06f863654d526ea1075a8596625f8482"
+  integrity sha512-icqopPh9ZSV+I8C5LlZN9pQJ0OMeBDNqHhP80+qDx0hOGEcsDC09wgjogbEMfJE0GcMDM7PDYtyQkqa9gIqd1g==
 
 react-native-progress-bar-animated@1.0.6:
   version "1.0.6"

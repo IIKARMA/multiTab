@@ -3,7 +3,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 // import { getInfo } from "../../../redux/reducers/directoryReducer";
 import { useNavigation } from "@react-navigation/native";
-import { createTask } from "../../../redux/reducers/tasksReducer";
+import {
+  createTask,
+  editingTaskTC,
+} from "../../../redux/reducers/tasksReducer";
 import NewTask from "../";
 import { LogBox } from "react-native";
 
@@ -24,5 +27,11 @@ export default connect(mapStateToProps, {
     return unsubscribe;
   }, [tasks]);
 
-  return <NewTask navigation={navigation} createTask={createTask} />;
+  return (
+    <NewTask
+      navigation={navigation}
+      editingTaskTC={editingTaskTC}
+      createTask={createTask}
+    />
+  );
 });

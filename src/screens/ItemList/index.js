@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  ImageBackground,
+  StyleSheet,
+} from "react-native";
 import { Icon, Box, NativeBaseProvider } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
+import { CustomItem } from "../../components";
+
 const ItemList = ({ navigation, tasks }) => {
+  console.log(tasks.tasks);
   const [listTasks, setListTasks] = useState([]);
   useEffect(() => {
-    setListTasks(tasks);
+    setListTasks(tasks.tasks);
   }, [tasks]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <NativeBaseProvider>
+      <View>
+        <View style={styles.headerContainer}>
           <Box style={styles.box}>
             <Icon
               as={MaterialCommunityIcons}
@@ -24,21 +35,28 @@ const ItemList = ({ navigation, tasks }) => {
             />
             <Text style={styles.headerText}>Заметки</Text>
           </Box>
-        </NativeBaseProvider>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("NewTask")}
-          style={styles.addButton}>
-          <Text style={styles.addText}>Добавить</Text>
-        </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("NewTask", {
+                title: "Новая заметка",
+                isNew: true,
+              })
+            }
+            style={styles.addButton}>
+            <Text style={styles.addText}>Добавить</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {listTasks.length
+            ? listTasks.map((value) => (
+                <View style={styles.cardItem} key={tasks.id}>
+                  <CustomItem {...value} navigation={navigation} />
+                </View>
+              ))
+            : null}
+        </ScrollView>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {listTasks.tasks?.map((tasks) => (
-          <View style={styles.cardItem} key={tasks.id}>
-            <Text style={styles.nameItem}>{tasks.heading}</Text>
-            <Text style={styles.textItem}>{tasks.task}</Text>
-          </View>
-        ))}
-      </ScrollView>
     </View>
   );
 };
