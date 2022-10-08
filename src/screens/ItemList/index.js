@@ -13,7 +13,7 @@ import { styles } from "./style";
 import { CustomItem } from "../../components";
 
 const ItemList = ({ navigation, tasks }) => {
-  console.log(tasks.tasks);
+  console.log(tasks);
   const [listTasks, setListTasks] = useState([]);
   useEffect(() => {
     setListTasks(tasks.tasks);
@@ -50,7 +50,7 @@ const ItemList = ({ navigation, tasks }) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {listTasks.length
             ? listTasks.map((value) => (
-                <View style={styles.cardItem} key={tasks.id}>
+                <View key={value.id} style={styles.cardItem}>
                   <CustomItem {...value} navigation={navigation} />
                 </View>
               ))

@@ -24,6 +24,10 @@ import { styles } from "./styles";
 import { theme } from "../../core/colors";
 
 const MyTextInput = ({
+  tasks,
+  tags,
+  visibleModal,
+  setVisibleModalTC,
   createTask,
   editingTaskTC,
   navigation,
@@ -31,18 +35,27 @@ const MyTextInput = ({
   isNew,
 }) => {
   const dispatch = useDispatch();
-  const [modal, setModalVisible] = useState(false);
 
   const [completed, setCompleted] = useState(false);
   const [headerText, setHeaderText] = useState(
     (editTask && editTask.heading) || ""
   );
-  const [text, setText] = useState((editTask && editTask.task) || "");
+  const savedTags = (tasks && tasks.activeTags) || [];
 
+  const [text, setText] = useState((editTask && editTask.task) || "");
+  const [activeTag, setActiveTag] = useState(savedTags);
+  const handleSelectTag = (tag) => {
+    if (activeTag.find((aTag) => aTag.id === tag.id)) {
+      setActiveTag(activeTag.filter((aTag) => aTag.id !== tag.id));
+    } else {
+      setActiveTag(activeTag.concat(tag));
+    }
+  };
   const createNewTask = () => {
     const payload = {
       heading: headerText,
       task: text,
+      activeTags: activeTag,
     };
 
     isNew
@@ -51,6 +64,9 @@ const MyTextInput = ({
     Keyboard.dismiss();
     navigation.goBack();
   };
+  const setTag = (aTags) => {
+    setActiveTag(aTags);
+  };
   useEffect(() => {
     headerText.trim("").length
       ? setCompleted(true)
@@ -58,7 +74,6 @@ const MyTextInput = ({
         console.log(headerText.length);
   }, [text, headerText]);
 
-  const onOpen = () => {};
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
@@ -98,7 +113,7 @@ const MyTextInput = ({
               {icons.map((value) => (
                 <IconButton
                   onPress={() => {
-                    setModalVisible(true);
+                    dispatch(setVisibleModalTC(true));
                     Keyboard.dismiss();
                   }}
                   key={value.id.toString()}
@@ -122,7 +137,15 @@ const MyTextInput = ({
               ))}
             </Box>
             <View style={{ paddingHorizontal: 15 }}>
-              {modal && <CustomModal modal={modal} />}
+              {visibleModal && (
+                <CustomModal
+                  tags={tags}
+                  activeTag={activeTag}
+                  handleSelectTag={handleSelectTag}
+                  modal={visibleModal}
+                  setVisibleModalTC={setVisibleModalTC}
+                />
+              )}
             </View>
           </View>
         </View>

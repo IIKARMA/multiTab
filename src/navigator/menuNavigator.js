@@ -10,7 +10,7 @@ import {
   Center,
   NativeBaseProvider,
   Stack,
-  VStack,
+  VStack
 } from "native-base";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +29,7 @@ const MenuNavigator = () => {
           initial={{
             opacity: 0,
             scale: 0,
-            translateY: 34,
+            translateY: 34
           }}
           animate={{
             translateY: 0,
@@ -40,9 +40,9 @@ const MenuNavigator = () => {
               mass: 0.8,
               stagger: {
                 offset: 30,
-                reverse: true,
-              },
-            },
+                reverse: true
+              }
+            }
           }}
           exit={{
             translateY: 34,
@@ -52,9 +52,9 @@ const MenuNavigator = () => {
               duration: 50,
               stagger: {
                 offset: 30,
-                reverse: true,
-              },
-            },
+                reverse: true
+              }
+            }
           }}>
           {/* <IconButton
               mb='4'
@@ -116,7 +116,7 @@ const MenuNavigator = () => {
                   <Icon
                     as={MaterialCommunityIcons}
                     _dark={{
-                      color: "warmGray.50",
+                      color: "warmGray.50"
                     }}
                     size='6'
                     name='format-list-checks'
@@ -156,7 +156,7 @@ const MenuNavigator = () => {
                     size='6'
                     name='pen-plus'
                     _dark={{
-                      color: "warmGray.50",
+                      color: "warmGray.50"
                     }}
                     color='warmGray.50'
                   />
@@ -180,7 +180,7 @@ const MenuNavigator = () => {
                 name='plus'
                 color='warmGray.50'
                 _dark={{
-                  color: "warmGray.50",
+                  color: "warmGray.50"
                 }}
               />
             }

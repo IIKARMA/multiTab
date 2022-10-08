@@ -16,15 +16,14 @@ const mapStateToProps = ({ task }) => ({
 export default connect(mapStateToProps, { getInfo })(({ task }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getInfo("tasks"));
-  // }, []);
+  useEffect(() => {
+    dispatch(getInfo("tasks"));
+  }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      dispatch(getInfo("tasks"));
+      return unsubscribe;
     });
-    return unsubscribe;
   }, [task]);
 
   return <MainScreen navigation={navigation} tasks={task} />;

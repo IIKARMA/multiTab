@@ -2,12 +2,17 @@
     "cSpell.words": [
         "Board",
         "card",
+        "editing",
         "Icons",
         "Modalize",
+        "orange",
+        "press",
         "Pressable",
         "Reducer",
         "reducers",
+        "teal",
         "theme",
         "Touchable"
-    ]
+    ],
+    "reactSnippets.settings.importReactOnTop": true
 }
