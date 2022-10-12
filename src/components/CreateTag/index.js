@@ -9,8 +9,8 @@ const CreateTag = () => {
   const [text, setText] = useState("");
   const pressHandler = () => {
     const payload = {
-      value: text,
-      color: "#" + (Math.random().toString(16) + "000000").substring(2, 8),
+      value: `#${text}`,
+      color: "#" + (Math.random().toString(16) + "000000").substring(2, 8)
     };
     dispatch(createTags(payload));
     setText("");
@@ -30,7 +30,7 @@ const CreateTag = () => {
           borderRadius: 10,
           paddingHorizontal: 10,
           backgroundColor: "#2D3142",
-          marginBottom: 30,
+          marginBottom: 30
         }}
       />
       <IconButton
@@ -38,7 +38,7 @@ const CreateTag = () => {
         p={2}
         mb='8'
         variant='solid'
-        bg='indigo.600'
+        bg='#138382'
         colorScheme='coolGray'
         borderRadius='full'
         icon={
@@ -47,7 +47,7 @@ const CreateTag = () => {
             size='5'
             name={"plus"}
             _dark={{
-              color: "warmGray.50",
+              color: "warmGray.50"
             }}
             color='warmGray.50'
           />

@@ -4,14 +4,12 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  ImageBackground,
-  StyleSheet,
+  ImageBackground
 } from "react-native";
 import { Icon, Box, NativeBaseProvider } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import { CustomItem } from "../../components";
-
 const ItemList = ({ navigation, tasks }) => {
   console.log(tasks);
   const [listTasks, setListTasks] = useState([]);
@@ -29,7 +27,7 @@ const ItemList = ({ navigation, tasks }) => {
               size='6'
               name={"file-edit"}
               _dark={{
-                color: "amber.400",
+                color: "amber.400"
               }}
               color='amber.400'
             />
@@ -39,8 +37,7 @@ const ItemList = ({ navigation, tasks }) => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("NewTask", {
-                title: "Новая заметка",
-                isNew: true,
+                isNew: true
               })
             }
             style={styles.addButton}>
@@ -49,11 +46,18 @@ const ItemList = ({ navigation, tasks }) => {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {listTasks.length
-            ? listTasks.map((value) => (
-                <View key={value.id} style={styles.cardItem}>
-                  <CustomItem {...value} navigation={navigation} />
-                </View>
-              ))
+            ? listTasks
+                .sort((a, b) => b < a)
+                .map((value) => (
+                  <View
+                    key={value.id}
+                    style={[
+                      styles.cardItem,
+                      { backgroundColor: value.background }
+                    ]}>
+                    <CustomItem {...value} navigation={navigation} />
+                  </View>
+                ))
             : null}
         </ScrollView>
       </View>

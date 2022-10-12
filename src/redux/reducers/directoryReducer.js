@@ -1,31 +1,38 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const SET_DISABLE_COMPLETED = "directory/SET_DISABLE_COMPLETED";
+const SET_IS_DONE = "directory/SET_IS_DONE";
 const SET_VISIBLE_MODAL = "directory/SET_VISIBLE_MODAL";
 const SET_TAGS = "directory/SET_TAGS";
 
 export const initialState = {
+  isDone: "false",
   completed: false,
   visibleModal: false,
-  tags: [],
+  tags: []
 };
 export const directoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DISABLE_COMPLETED:
       return {
         ...state,
-        completed: action.isEnable,
+        completed: action.isEnable
       };
 
     case SET_VISIBLE_MODAL:
       return {
         ...state,
-        visibleModal: action.isEnable,
+        visibleModal: action.isEnable
+      };
+    case SET_IS_DONE:
+      return {
+        ...state,
+        isDone: action.isEnable
       };
 
     case SET_TAGS:
       return {
         ...state,
-        tags: action.tags,
+        tags: action.tags
       };
 
     default:
@@ -34,14 +41,17 @@ export const directoryReducer = (state = initialState, action) => {
 };
 export const setDisableCompleted = (isEnable) => ({
   type: SET_DISABLE_COMPLETED,
-  isEnable,
+  isEnable
 });
+export const setIsDone = (isEnable) => ({ type: SET_IS_DONE, isEnable });
 export const setVisibleModalTC = (isEnable) => ({
   type: SET_VISIBLE_MODAL,
-  isEnable,
+  isEnable
 });
 export const setTags = (tags) => ({ type: SET_TAGS, tags });
-
+export const createDefaultTags = (type) => async (dispatch) => {
+  await AsyncStorage.setItem(`@${type}`, JSON.stringify(initialState[type]));
+};
 export const getInfo = (type) => async (dispatch) => {
   const storageInfo = JSON.parse(await AsyncStorage.getItem(`@${type}`));
   if (storageInfo) {
@@ -56,13 +66,11 @@ export const getInfo = (type) => async (dispatch) => {
 
 export const createTags = (payload) => async (dispatch) => {
   const tag = {
-    id: `${+new Date()}`,
     ...payload,
+    id: `${+new Date()}`
   };
   const storageTag = JSON.parse(await AsyncStorage.getItem(`@tags`));
-  console.log("====================================");
-  console.log(storageTag.activeTags);
-  console.log("====================================");
+
   if (!storageTag) await AsyncStorage.setItem(`@tags`, JSON.stringify([tag]));
   else {
     const jsonTag = storageTag && storageTag.length && storageTag.concat(tag);

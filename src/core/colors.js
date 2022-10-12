@@ -4,5 +4,7 @@ export const theme = {
   text: "#E7EFFF",
   secondText: "#C2C6DC",
   card: "rgba(54,58,75,0.6)",
+  secondNavigator: "rgba(30,30,30,0.5)",
   item: "rgba(101, 105, 124,0.2)",
+  completed: "#138382"
 };

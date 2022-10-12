@@ -11,24 +11,36 @@ import {
   Box,
   Container,
   VStack,
+  HStack,
+  View
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Vibration } from "react-native";
 import { useDispatch } from "react-redux";
 import { removeTaskTC, editingTaskTC } from "../../redux/reducers/tasksReducer";
-const CustomItem = ({ id, heading, task, navigation }) => {
+import { setVisibleModalTC } from "../../redux/reducers/directoryReducer";
+const CustomItem = ({
+  id,
+  task,
+  heading,
+  background,
+  activeTags,
+  selectDate,
+  navigation
+}) => {
   const dispatch = useDispatch();
   return (
     <Box key={id}>
       <Menu
         placement='bottom center'
-        bg='blueGray.600'
-        _backdrop={{ bg: "rgba(54,58,75,0)" }}
+        bg={"blueGray.500"}
         color={theme.text}
+        opacity={0.7}
         shadow={5}
         trigger={(triggerProps) => {
           return (
             <Pressable accessibilityLabel='More options menu' {...triggerProps}>
               <VStack
+                zIndex={2}
                 padding={2}
                 height='100%'
                 width='90%'
@@ -38,7 +50,7 @@ const CustomItem = ({ id, heading, task, navigation }) => {
                 <Text
                   style={{
                     color: theme.text,
-                    fontWeight: "800",
+                    fontWeight: "800"
                   }}>
                   {heading}
                 </Text>
@@ -46,7 +58,7 @@ const CustomItem = ({ id, heading, task, navigation }) => {
                   style={{
                     paddingRight: 10,
                     color: theme.secondText,
-                    fontWeight: "400",
+                    fontWeight: "400"
                   }}>
                   {task}
                 </Text>
@@ -55,20 +67,20 @@ const CustomItem = ({ id, heading, task, navigation }) => {
           );
         }}>
         <Menu.Item
+          opacity={1}
           color={theme.secondText}
           onPress={() =>
             navigation.navigate("NewTask", {
               screen: "NewTask",
-              title: "Редактировать",
               isNew: false,
-              task: { task, heading, id },
+              task: { id, task, heading, background, activeTags, selectDate }
             })
           }>
           <Text color={theme.text}>Редактировать</Text>
         </Menu.Item>
-        <Menu.Item>
+        {/* <Menu.Item onPress={() => setVisibleModalTC(true)}>
           <Text color={theme.text}>Изменить цвет</Text>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item onPress={() => dispatch(removeTaskTC(id))}>
           <Text color={theme.text}>Удалить</Text>
         </Menu.Item>

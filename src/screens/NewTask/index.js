@@ -1,30 +1,37 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { MyTextInput } from "../../components";
+import { CreateTask } from "../../components";
 import { theme } from "../../core/colors";
 import { useRoute } from "@react-navigation/native";
 const NewTask = ({
+  isDone,
+
+  background,
+  completed,
+  setDisableCompleted,
   tags,
   tasks,
   createTask,
   navigation,
   editingTaskTC,
   visibleModal,
-  setVisibleModalTC,
+  setVisibleModalTC
 }) => {
   const { task, isNew } = useRoute().params;
-  console.log(task);
+
   return (
-    <View style={{ backgroundColor: theme.background }}>
-      <MyTextInput
+    <View style={{ backgroundColor: theme.card }}>
+      <CreateTask
+        isDone={isDone}
+        setDisableCompleted={setDisableCompleted}
+        completed={completed}
         tags={tags}
-        tasks={tasks}
         setVisibleModalTC={setVisibleModalTC}
         visibleModal={visibleModal}
         createTask={createTask}
         navigation={navigation}
         editingTaskTC={editingTaskTC}
-        editTask={task && task}
+        editTask={task}
         isNew={isNew}
       />
     </View>

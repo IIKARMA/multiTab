@@ -1,30 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { Dimensions } from "react-native";
-import { Modal, Center, Button, Container } from "native-base";
-import { CreateTag, CustomRadioGroup, CustomButton, SelectTag } from "../";
+import React, { useState } from "react";
+import { Dimensions, TouchableOpacity } from "react-native";
+import { Modal, Center, HStack, View, theme } from "native-base";
+import {
+  CreateTag,
+  CustomCalendar,
+  CustomSelectTag,
+  CustomSwatcherColor
+} from "../";
+
 import { useDispatch } from "react-redux";
 const CustomModal = ({
+  selectDate,
+  setSelectTime,
+  setSelectDate,
+  name,
+  selectBG,
+  setSelectBG,
   tags,
   activeTag,
   handleSelectTag,
   modal,
-  setVisibleModalTC,
+  setVisibleModalTC
 }) => {
   const dispatch = useDispatch();
 
+  const [selectColor, setSelectColor] = useState(selectBG && selectBG);
   const closeModal = () => {
     dispatch(setVisibleModalTC(false));
   };
   return (
     <Center>
       <Modal
+        avoidKeyboard
         p={"2"}
         animationPreset='slide'
         style={{
           borderBottomWidth: 0,
           marginBottom: 0,
           marginTop: "auto",
-          backfaceVisibility: "hidden",
+          backfaceVisibility: "hidden"
         }}
         size='full'
         justifyContent='flex-end'
@@ -39,26 +53,35 @@ const CustomModal = ({
             bg='#2D3142'
             colorScheme='#fff'
           />
-          <Modal.Header
-            _text={{ color: "text.50", textAlign: "center", fontSize: "lg" }}
-            borderBottomWidth='0'
-            background='rgba(54,58,75,0.6)'>
-            Тэг
-          </Modal.Header>
-          <Modal.Body
-            h={"sm"}
-            borderBottom={0}
-            background='rgba(54,58,75,0.6)'
-            borderColor={"red"}>
-            <CreateTag />
-
-            <SelectTag
-              tags={tags}
-              handleSelectTag={handleSelectTag}
-              selectedTags={activeTag}
-            />
-            <CustomButton closeModal={closeModal} />
-          </Modal.Body>
+          <View>
+            {name === "calendar-clock" && (
+              <CustomCalendar
+                setSelectTime={setSelectTime}
+                selectDate={selectDate}
+                setSelectDate={setSelectDate}
+                closeModal={closeModal}
+                theme={theme}
+              />
+            )}
+            {name === "palette" && (
+              <CustomSwatcherColor
+                closeModal={closeModal}
+                setSelectBG={setSelectBG}
+                selectColor={selectColor}
+                setSelectColor={setSelectColor}
+                theme={theme}
+              />
+            )}
+            {name === "bookmark" && (
+              <CustomSelectTag
+                activeTag={activeTag}
+                closeModal={closeModal}
+                theme={theme}
+                tags={tags}
+                handleSelectTag={handleSelectTag}
+              />
+            )}
+          </View>
         </Modal.Content>
       </Modal>
     </Center>

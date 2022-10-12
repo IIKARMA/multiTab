@@ -10,6 +10,7 @@
         "Pressable",
         "Reducer",
         "reducers",
+        "swatches",
         "teal",
         "theme",
         "Touchable"

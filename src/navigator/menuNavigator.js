@@ -172,7 +172,7 @@ const MenuNavigator = () => {
             borderRadius='full'
             size='lg'
             onPress={onToggle}
-            bg='indigo.400'
+            bg='darkBlue.400'
             icon={
               <Icon
                 as={MaterialCommunityIcons}

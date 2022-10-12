@@ -1,33 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 import { Button, Container } from "native-base";
-
+import { marginBottom } from "styled-system";
 const CustomButton = ({ closeModal }) => {
   return (
-    <Container
-      w={"full"}
-      style={{
-        position: "absolute",
-        bottom: 20,
-        alignSelf: "center",
-        paddingTop: 35,
-      }}>
-      <Button
-        bg='indigo.600'
-        w={"full"}
-        textAlign='center'
-        onPress={closeModal}
-        _text='Готово'>
-        <Text
-          style={{
-            color: "#fff",
-            fontWeight: "bold",
-            alignSelf: "center",
-          }}>
-          Добавить
-        </Text>
-      </Button>
-    </Container>
+    <Button
+      bg='#138382'
+      w='full'
+      borderRadius={"xl"}
+      textAlign='center'
+      onPress={closeModal}>
+      <Text
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          fontWeight: "normal"
+        }}>
+        Добавить
+      </Text>
+    </Button>
   );
 };
 export default CustomButton;

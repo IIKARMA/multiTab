@@ -4,26 +4,36 @@ import {
   View,
   TouchableOpacity,
   Keyboard,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from "react-native";
 import { MainScreen, NewTask } from "../screens/";
 import {
   createStackNavigator,
-  TransitionPresets,
+  TransitionPresets
 } from "@react-navigation/stack";
-import { setDisableCompleted } from "../redux/reducers/directoryReducer";
+import {
+  setDisableCompleted,
+  setIsDone
+} from "../redux/reducers/directoryReducer";
 import { Icon, NativeBaseProvider } from "native-base";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../core/colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { paddingRight } from "styled-system";
+import { BlurView } from "expo-blur";
+import { Title } from "react-native-paper";
 
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => {
-  const completed = useSelector(({ directory }) => directory.completed);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const completed = useSelector(({ directory }) => directory.completed);
+  const pressDone = () => {
+    dispatch(setIsDone(true));
+    navigation.goBack();
+  };
   console.log(completed);
   return (
     <Navigator
@@ -31,64 +41,95 @@ const HomeNavigator = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: "#fff",
-        presentation: "modal",
+        presentation: "transparentModal",
         gestureEnabled: true,
         cardOverlayEnabled: true,
         ...TransitionPresets.ModalPresentationIOS,
         headerStyle: {
           elevation: 0,
           shadowOpacity: 0,
-          borderBottomWidth: 0,
-          backgroundColor: theme.background,
-        },
+          borderBottomWidth: 0
+        }
       }}>
-      <Screen component={MainScreen} name='Home' options={{}} />
+      <Screen
+        component={MainScreen}
+        name='Home'
+        options={{ headerShown: false }}
+      />
       <Screen
         initialParams={{ id: 2 }}
         component={NewTask}
         name='NewTask'
         options={({ route }) => ({
           headerStyle: {
+            height: 40,
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: theme.background,
+            backgroundColor: theme.card
           },
-          title: route.params.title,
-          headerLeft: () => (
-            <View style={{ alignItems: "center", flexDirection: "row" }}>
+          headerTitle: route.params.title,
+          header: ({ route }) => (
+            <View>
               <NativeBaseProvider>
-                <TouchableOpacity
-                  onPress={() => {
-                    Keyboard.dismiss();
-                    navigation.goBack();
-                  }}>
-                  <Icon
-                    as={MaterialCommunityIcons}
-                    size='10'
-                    name='chevron-left'
-                    _dark={{
-                      color: "warmGray.50",
-                    }}
-                    color='warmGray.50'
-                  />
-                </TouchableOpacity>
+                <BlurView tint='dark' intensity={60}>
+                  <View
+                    style={{
+                      paddingTop: 10,
+                      paddingRight: 16,
+                      height: 50,
+                      width: "100%",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row"
+                    }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        Keyboard.dismiss();
+                        navigation.goBack();
+                      }}>
+                      <Icon
+                        as={MaterialCommunityIcons}
+                        size='10'
+                        name='chevron-left'
+                        _dark={{
+                          color: "warmGray.50"
+                        }}
+                        color='warmGray.50'
+                      />
+                    </TouchableOpacity>
+
+                    {/* <Title
+                      style={{ alignSelf: "center", color: theme.secondText }}>
+                      {route.params.title}
+                    </Title> */}
+
+                    <TouchableOpacity
+                      onPress={pressDone}
+                      disabled={completed ? false : true}
+                      style={[
+                        {
+                          borderColor: theme.completed,
+                          borderWidth: 1,
+                          borderRadius: 10
+                        },
+                        completed && { backgroundColor: theme.completed }
+                      ]}>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          padding: 8,
+                          fontSize: 16,
+                          color: theme.secondText
+                        }}>
+                        Готово
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </BlurView>
               </NativeBaseProvider>
             </View>
-          ),
-          // headerRight: () =>
-          //   completed && (
-          //     <View
-          //       style={{
-          //         alignItems: "center",
-          //         flexDirection: "row",
-          //         paddingRight: 16,
-          //       }}>
-          //       <TouchableOpacity>
-          //         <Text>Готово</Text>
-          //       </TouchableOpacity>
-          //     </View>
-          //   ),
+          )
         })}
       />
     </Navigator>

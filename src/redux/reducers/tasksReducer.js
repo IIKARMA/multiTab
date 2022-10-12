@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const SET_TASKS = "tasks/SET_TASKS";
 const initialState = {
-  tasks: [],
+  tasks: []
 };
 
 export const tasksReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ export const tasksReducer = (state = initialState, action) => {
     case SET_TASKS:
       return {
         ...state,
-        tasks: action.tasks,
+        tasks: action.tasks
       };
 
     default:
@@ -33,7 +33,7 @@ export const getInfo = (type) => async (dispatch) => {
 export const createTask = (payload) => async (dispatch) => {
   const task = {
     ...payload,
-    id: `${+new Date()}`,
+    id: `${+new Date()}`
   };
   const storageTask = JSON.parse(await AsyncStorage.getItem(`@tasks`));
 
@@ -49,8 +49,11 @@ export const editingTaskTC = (task, id) => async (dispatch) => {
   const storageTask = JSON.parse(await AsyncStorage.getItem(`@tasks`));
   const editingTask = storageTask.map((oldTask) => {
     if (oldTask.id === id) {
-      oldTask.heading = task.heading;
-      oldTask.task = task.task;
+      oldTask.heading = task?.heading;
+      oldTask.task = task?.task;
+      oldTask.background = task?.background;
+      oldTask.activeTags = task?.activeTags;
+      oldTask.selectDate = task?.selectDate;
     }
     return oldTask;
   });

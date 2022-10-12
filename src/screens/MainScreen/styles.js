@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
   actionMenu: {
     position: "absolute",
     right: 16,
-    bottom: 26,
+    bottom: 26
   },
-  container: { flex: 1, backgroundColor: theme.background },
+  container: { flex: 1, paddingTop: 60 },
   image: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-    borderRadius: 10,
-  },
+    borderRadius: 10
+  }
 });
