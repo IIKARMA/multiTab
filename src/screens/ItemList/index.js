@@ -10,8 +10,8 @@ import { Icon, Box, NativeBaseProvider } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import { CustomItem } from "../../components";
-const ItemList = ({ navigation, tasks }) => {
-  console.log(tasks);
+import { useSelector } from "react-redux";
+const ItemList = ({ navigation, tasks, languages }) => {
   const [listTasks, setListTasks] = useState([]);
   useEffect(() => {
     setListTasks(tasks.tasks);
@@ -31,7 +31,7 @@ const ItemList = ({ navigation, tasks }) => {
               }}
               color='amber.400'
             />
-            <Text style={styles.headerText}>Заметки</Text>
+            <Text style={styles.headerText}>{languages.notes}</Text>
           </Box>
 
           <TouchableOpacity
@@ -41,7 +41,7 @@ const ItemList = ({ navigation, tasks }) => {
               })
             }
             style={styles.addButton}>
-            <Text style={styles.addText}>Добавить</Text>
+            <Text style={styles.addText}>{languages.add}</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -55,7 +55,11 @@ const ItemList = ({ navigation, tasks }) => {
                       styles.cardItem,
                       { backgroundColor: value.background }
                     ]}>
-                    <CustomItem {...value} navigation={navigation} />
+                    <CustomItem
+                      {...value}
+                      navigation={navigation}
+                      languages={languages}
+                    />
                   </View>
                 ))
             : null}

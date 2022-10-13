@@ -1,4 +1,5 @@
 export const uk = {
+  tasks: "Задачі",
   notes: "Нотатки",
   add: "Добавити",
   edit: "Редагувати",

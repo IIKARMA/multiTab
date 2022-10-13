@@ -7,10 +7,10 @@ import MainScreen from "../";
 import { LogBox } from "react-native";
 
 LogBox.ignoreLogs([
-  "Non-serializable values were found in the navigation state",
+  "Non-serializable values were found in the navigation state"
 ]);
 const mapStateToProps = ({ task }) => ({
-  task: task,
+  task: task
 });
 
 export default connect(mapStateToProps, { getInfo })(({ task }) => {

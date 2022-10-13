@@ -20,7 +20,8 @@ import { LogBox } from "react-native";
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state"
 ]);
-const mapStateToProps = ({ tasks, directory }) => ({
+const mapStateToProps = ({ tasks, directory, app }) => ({
+  languages: app.languages,
   tasks: tasks,
   visibleModal: directory.visibleModal,
   tags: directory.tags,
@@ -35,7 +36,7 @@ export default connect(mapStateToProps, {
   setDisableCompleted,
   setTask,
   getInfo
-})(({ tasks, visibleModal, tags, completed, isDone }) => {
+})(({ tasks, visibleModal, tags, completed, isDone, languages }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -48,6 +49,7 @@ export default connect(mapStateToProps, {
 
   return (
     <NewTask
+      languages={languages}
       isDone={isDone}
       setDisableCompleted={setDisableCompleted}
       completed={completed}

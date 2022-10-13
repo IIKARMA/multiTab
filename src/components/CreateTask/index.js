@@ -37,6 +37,7 @@ const icons = [
 ];
 const CreateTask = ({
   isDone,
+  languages,
   setDisableCompleted,
   completed,
   task,
@@ -151,7 +152,7 @@ const CreateTask = ({
                 value={headerText}
                 onChangeText={(value) => setHeaderText(value)}
                 placeholderTextColor={theme.text}
-                placeholder={"Название"}
+                placeholder={languages.name}
                 style={styles.textInput}
               />
               {task?.activeTags ||
@@ -180,7 +181,7 @@ const CreateTask = ({
                 value={text}
                 onChangeText={(value) => setText(value)}
                 placeholderTextColor={theme.secondText}
-                placeholder={"Описание"}
+                placeholder={languages.description}
                 style={styles.textInput}
               />
 
@@ -255,6 +256,7 @@ const CreateTask = ({
             <View style={{ paddingHorizontal: 15 }}>
               {visibleModal && (
                 <CustomModal
+                  languages={languages}
                   setSelectTime={setSelectTime}
                   selectDate={selectDate}
                   setSelectDate={setSelectDate}

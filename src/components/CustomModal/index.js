@@ -10,6 +10,7 @@ import {
 
 import { useDispatch } from "react-redux";
 const CustomModal = ({
+  languages,
   selectDate,
   setSelectTime,
   setSelectDate,
@@ -56,6 +57,7 @@ const CustomModal = ({
           <View>
             {name === "calendar-clock" && (
               <CustomCalendar
+                languages={languages}
                 setSelectTime={setSelectTime}
                 selectDate={selectDate}
                 setSelectDate={setSelectDate}
@@ -65,6 +67,7 @@ const CustomModal = ({
             )}
             {name === "palette" && (
               <CustomSwatcherColor
+                languages={languages}
                 closeModal={closeModal}
                 setSelectBG={setSelectBG}
                 selectColor={selectColor}
@@ -74,6 +77,7 @@ const CustomModal = ({
             )}
             {name === "bookmark" && (
               <CustomSelectTag
+                languages={languages}
                 activeTag={activeTag}
                 closeModal={closeModal}
                 theme={theme}

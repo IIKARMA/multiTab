@@ -4,7 +4,7 @@ import { Icon, IconButton, HStack } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createTags } from "../../redux/reducers/directoryReducer";
 import { useDispatch } from "react-redux";
-const CreateTag = () => {
+const CreateTag = ({ languages }) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const pressHandler = () => {
@@ -22,7 +22,7 @@ const CreateTag = () => {
         value={text}
         onChangeText={(text) => setText(text)}
         placeholderTextColor='#fff'
-        placeholder='Добавить тэг'
+        placeholder={languages.add_tag}
         style={{
           paddingVertical: 10,
           color: "#fff",

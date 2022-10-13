@@ -14,7 +14,10 @@ import {
 } from "native-base";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 const MenuNavigator = () => {
+  const languages = useSelector(({ app }) => app.languages);
+
   const navigation = useNavigation();
   const { isOpen, onToggle, onClose } = useDisclose();
   const onNavigate = (root) => {
@@ -103,7 +106,7 @@ const MenuNavigator = () => {
                 fontSize='sm'
                 fontWeight='medium'
                 color='white'>
-                Задачи
+                {languages.tasks}
               </Text>
               <IconButton
                 p={3}
@@ -137,7 +140,7 @@ const MenuNavigator = () => {
                 fontSize='sm'
                 fontWeight='medium'
                 color='white'>
-                Заметки
+                {languages.notes}
               </Text>
               <IconButton
                 p={3}

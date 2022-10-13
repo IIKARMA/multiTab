@@ -5,7 +5,7 @@ import { theme } from "../../core/colors";
 import { useRoute } from "@react-navigation/native";
 const NewTask = ({
   isDone,
-
+  languages,
   background,
   completed,
   setDisableCompleted,
@@ -22,6 +22,7 @@ const NewTask = ({
   return (
     <View style={{ backgroundColor: theme.card }}>
       <CreateTask
+        languages={languages}
         isDone={isDone}
         setDisableCompleted={setDisableCompleted}
         completed={completed}

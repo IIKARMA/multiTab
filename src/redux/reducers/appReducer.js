@@ -19,9 +19,8 @@ export const appReducer = (state = initialState, action) => {
         ...state,
         languages: action.languages
       };
-
     default:
-      return;
+      return state;
   }
 };
 

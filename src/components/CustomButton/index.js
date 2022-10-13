@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 import { Button, Container } from "native-base";
 import { marginBottom } from "styled-system";
+import { useSelector } from "react-redux";
 const CustomButton = ({ closeModal }) => {
+  const languages = useSelector(({ app }) => app.languages);
   return (
     <Button
       bg='#138382'
@@ -16,7 +18,7 @@ const CustomButton = ({ closeModal }) => {
           color: "#fff",
           fontWeight: "normal"
         }}>
-        Добавить
+        {languages.add}
       </Text>
     </Button>
   );

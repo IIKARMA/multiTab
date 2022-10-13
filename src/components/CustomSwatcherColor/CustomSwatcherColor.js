@@ -3,6 +3,7 @@ import { Modal } from "native-base";
 import { SelectBG } from "../index";
 const CustomSwatcherColor = ({
   closeModal,
+  languages,
   theme,
   setSelectColor,
   selectColor,
@@ -18,7 +19,7 @@ const CustomSwatcherColor = ({
         }}
         borderBottomWidth='0'
         background='rgba(54,58,75,0.6)'>
-        Цвет фона
+        {languages.bg}
       </Modal.Header>
       <Modal.Body
         h='24'

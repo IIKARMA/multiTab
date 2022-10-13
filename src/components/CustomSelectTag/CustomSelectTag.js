@@ -3,6 +3,7 @@ import { Modal } from "native-base";
 import { SelectTag, CreateTag, CustomButton } from "..";
 const CustomSelectTag = ({
   activeTag,
+  languages,
   theme,
   tags,
   handleSelectTag,
@@ -18,14 +19,14 @@ const CustomSelectTag = ({
         }}
         borderBottomWidth='0'
         background='rgba(54,58,75,0.6)'>
-        Тэг
+        {languages.tag}
       </Modal.Header>
       <Modal.Body
         h={"sm"}
         borderBottom={0}
         background='rgba(54,58,75,0.6)'
         borderColor={"red"}>
-        <CreateTag />
+        <CreateTag languages={languages} />
         <SelectTag
           tags={tags}
           handleSelectTag={handleSelectTag}

@@ -25,7 +25,8 @@ const CustomItem = ({
   background,
   activeTags,
   selectDate,
-  navigation
+  navigation,
+  languages
 }) => {
   const dispatch = useDispatch();
   return (
@@ -76,13 +77,13 @@ const CustomItem = ({
               task: { id, task, heading, background, activeTags, selectDate }
             })
           }>
-          <Text color={theme.text}>Редактировать</Text>
+          <Text color={theme.text}>{languages.edit}</Text>
         </Menu.Item>
         {/* <Menu.Item onPress={() => setVisibleModalTC(true)}>
           <Text color={theme.text}>Изменить цвет</Text>
         </Menu.Item> */}
         <Menu.Item onPress={() => dispatch(removeTaskTC(id))}>
-          <Text color={theme.text}>Удалить</Text>
+          <Text color={theme.text}>{languages.delete}</Text>
         </Menu.Item>
       </Menu>
     </Box>

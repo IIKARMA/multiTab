@@ -11,6 +11,7 @@ import { styles } from "./style";
 
 const CustomCalendar = ({
   closeModal,
+  languages,
   theme,
   selectDate,
   setSelectTime,
@@ -91,7 +92,7 @@ const CustomCalendar = ({
                   name='calendar-today'
                 />
               }>
-              <Text style={styles.text}>На сегодня</Text>
+              <Text style={styles.text}>{languages.onToday}</Text>
             </Button>
             <Button
               onPress={showDatePicker}
@@ -122,7 +123,7 @@ const CustomCalendar = ({
                   name='calendar-plus'
                 />
               }>
-              <Text style={styles.text}>На завтра</Text>
+              <Text style={styles.text}>{languages.onTomorrow}</Text>
             </Button>
           </HStack>
         </View>
