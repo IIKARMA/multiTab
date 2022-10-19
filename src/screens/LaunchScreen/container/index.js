@@ -13,7 +13,7 @@ import { LogBox } from "react-native";
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state"
 ]);
-const mapStateToProps = ({ app, directory }) => ({
+const mapStateToProps = ({ app, directory, task }) => ({
   task: task,
   isLaunched: app.isLaunched
 });
@@ -34,5 +34,5 @@ export default connect(mapStateToProps, { getInfo })(({ task, isLaunched }) => {
     });
   }, [task]);
 
-  return <LaunchScreen navigation={navigation} tasks={task} />;
+  return <LaunchScreen />;
 });

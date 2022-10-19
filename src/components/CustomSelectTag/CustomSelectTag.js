@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "native-base";
-import { SelectTag, CreateTag, CustomButton } from "..";
+import { SelectTag, CreateTag, CustomButton } from "../";
 const CustomSelectTag = ({
   activeTag,
   languages,

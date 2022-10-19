@@ -8,8 +8,6 @@ import {
   Text,
   Icon,
   Center,
-  NativeBaseProvider,
-  Stack,
   VStack
 } from "native-base";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -21,7 +19,7 @@ const MenuNavigator = () => {
   const navigation = useNavigation();
   const { isOpen, onToggle, onClose } = useDisclose();
   const onNavigate = (root) => {
-    navigation.navigate(root, { title: "Новая заметка", isNew: true });
+    navigation.navigate(root, { isNew: true });
   };
   return (
     <Center>

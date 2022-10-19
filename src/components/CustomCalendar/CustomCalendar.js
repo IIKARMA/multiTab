@@ -2,49 +2,35 @@ import React, { useState, useCallback, useMemo } from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { Modal, HStack, Button, Icon } from "native-base";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import CustomButton from "../CustomButton";
+import { CustomButton, CustomTimePicker } from "..";
 import { Calendar, CalendarUtils } from "react-native-calendars";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import moment from "moment";
 import { styles } from "./style";
-
+require("moment/min/locales.min");
+moment.locale("uk");
 const CustomCalendar = ({
   closeModal,
+  setDatePickerVisibility,
+  isDatePickerVisible,
   languages,
   theme,
   selectDate,
   setSelectTime,
   setSelectDate
 }) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    setSelectTime(moment(date).format("HH:mm"));
-    hideDatePicker();
-  };
-
   const onDayPress = (day) => {
     setSelectDate(day.dateString);
   };
   const fastSelectDate = (type) => {
     type == "today"
       ? setSelectDate(
-          CalendarUtils.getCalendarDateString(
-            moment().add(0, "day").format("L")
-          )
+          CalendarUtils.getCalendarDateString(moment().format("YYYY-MM-DD"))
         )
       : setSelectDate(
           CalendarUtils.getCalendarDateString(
-            moment().add(1, "day").format("L")
+            moment().add(1, "day").format("YYYY-MM-DD")
           )
         );
 
@@ -95,7 +81,7 @@ const CustomCalendar = ({
               <Text style={styles.text}>{languages.onToday}</Text>
             </Button>
             <Button
-              onPress={showDatePicker}
+              onPress={() => setDatePickerVisibility(true)}
               bg={"#444"}
               leftIcon={
                 <Icon
@@ -107,7 +93,8 @@ const CustomCalendar = ({
                   size='6'
                   name='clock-plus'
                 />
-              }></Button>
+              }
+            />
             <Button
               onPress={() => fastSelectDate("tomorrow")}
               style={styles.borderRightButton}
@@ -127,14 +114,14 @@ const CustomCalendar = ({
             </Button>
           </HStack>
         </View>
-        <DateTimePickerModal
-          display='default'
-          isVisible={isDatePickerVisible}
-          mode='time'
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          is24Hour={true}
-        />
+        {isDatePickerVisible && (
+          <CustomTimePicker
+            closeModal={closeModal}
+            setSelectTime={setSelectTime}
+            isDatePickerVisible={isDatePickerVisible}
+            setDatePickerVisibility={setDatePickerVisibility}
+          />
+        )}
         <CustomButton closeModal={closeModal} />
       </Modal.Body>
     </>

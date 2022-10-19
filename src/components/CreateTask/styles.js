@@ -30,10 +30,14 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10
   },
+  text: {
+    color: theme.text,
+    fontSize: 12
+  },
   additionalBar: {
     position: "absolute",
     bottom: 0,
-    paddingLeft: 10,
+
     justifyContent: "space-between",
     alignSelf: "center",
     marginTop: 10,

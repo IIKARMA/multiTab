@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Keyboard,
-  KeyboardAvoidingView
-} from "react-native";
-import { MainScreen, NewTask } from "../screens/";
+import { Text, View, TouchableOpacity, Keyboard } from "react-native";
+import { MainScreen, NewTask, ItemListScreen } from "../screens/";
 import {
   createStackNavigator,
   TransitionPresets
@@ -20,9 +14,7 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../core/colors";
 import { useDispatch, useSelector } from "react-redux";
-import { paddingRight } from "styled-system";
 import { BlurView } from "expo-blur";
-import { Title } from "react-native-paper";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -131,6 +123,35 @@ const HomeNavigator = () => {
             </View>
           )
         })}
+      />
+      <Screen
+        name='ItemList'
+        component={ItemListScreen}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity style={{ paddingRight: 8 }}>
+              <Icon
+                as={MaterialCommunityIcons}
+                size='6'
+                name='dots-horizontal-circle-outline'
+                color='warmGray.50'
+              />
+            </TouchableOpacity>
+          ),
+
+          title: "Нотатки",
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: theme.background
+          },
+          headerBackTitleVisible: false,
+          presentation: "modal",
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.SlideFromRightIOS
+        }}
       />
     </Navigator>
   );

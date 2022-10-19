@@ -5,7 +5,10 @@ export { default as CustomButton } from "./CustomButton";
 export { default as CustomCalendar } from "./CustomCalendar/CustomCalendar";
 export { default as CustomSwatcherColor } from "./CustomSwatcherColor/CustomSwatcherColor";
 export { default as CustomSelectTag } from "./CustomSelectTag/CustomSelectTag";
+export { default as CustomTimePicker } from "./CustomTimePicker/CustomTimePicker";
 export { default as CreateTag } from "./CreateTag";
 export { default as SelectTag } from "./SelectTag/SelectTag";
 export { default as SelectBG } from "./SelectBG/SelectBG";
+
+export { default as Header } from "./Header/Header";
 // export { default as Layout } from "./Layout";

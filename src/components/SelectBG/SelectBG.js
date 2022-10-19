@@ -1,14 +1,15 @@
 import React, { memo, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { HStack } from "native-base";
-
+import { HStack, Icon } from "native-base";
+import { theme } from "../../core/colors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const swatches = [
   "#6d597a",
-  "#fca311",
   "#3f8efc",
   "#e63946",
   "#4d908e",
-  "#ee6c4d"
+  "#ee6c4d",
+  theme.card
 ];
 
 const SelectBG = ({ setSelectBG, setSelectColor, selectColor }) => {
@@ -25,15 +26,29 @@ const SelectBG = ({ setSelectBG, setSelectColor, selectColor }) => {
             {
               height: 40,
               width: 40,
+              justifyContent: "center",
+              alignItems: "center",
               borderRadius: 10,
               backgroundColor: color
-            },
-            color === selectColor && {
-              borderWidth: 3,
-              borderColor: "#fff"
             }
-          ]}
-        />
+          ]}>
+          {color === theme.card && selectColor !== theme.card && (
+            <Icon
+              as={MaterialCommunityIcons}
+              size='8'
+              name='close'
+              color='gray.300'
+            />
+          )}
+          {color === selectColor && (
+            <Icon
+              as={MaterialCommunityIcons}
+              size='8'
+              name='check'
+              color='gray.300'
+            />
+          )}
+        </TouchableOpacity>
       ))}
     </HStack>
   );

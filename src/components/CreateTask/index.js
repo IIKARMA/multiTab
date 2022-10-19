@@ -1,17 +1,14 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   TouchableWithoutFeedback,
-  TouchableOpacity,
   Keyboard,
   Text,
   KeyboardAvoidingView,
-  StyleSheet,
-  Platform,
-  Animated
+  Platform
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import { Icon, IconButton, Modal, Box, HStack, Button } from "native-base";
+import { Icon, IconButton, HStack, Button } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { CustomModal } from "../";
@@ -19,11 +16,13 @@ import { BlurView } from "expo-blur";
 import { styles } from "./styles";
 import { theme } from "../../core/colors";
 import { setIsDone } from "../../redux/reducers/directoryReducer";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 import moment from "moment";
 
 const icons = [
   {
-    name: "bookmark",
+    name: "tag",
     id: 1
   },
   {
@@ -33,6 +32,10 @@ const icons = [
   {
     name: "calendar-clock",
     id: 2
+  },
+  {
+    name: "clock",
+    id: 4
   }
 ];
 const CreateTask = ({
@@ -75,12 +78,13 @@ const CreateTask = ({
     (editTask && editTask.selectDate) || ""
   );
   const [selectTime, setSelectTime] = useState(
-    (editTask && editTask.selectTime) || moment(new Date()).format("HH:mm")
+    (editTask && editTask.selectTime) || ""
   );
   const searchInput = useRef(null);
 
   const openModal = (dispatch, type) => {
     dispatch(setVisibleModalTC(!visibleModal));
+
     setName(type);
     Keyboard.dismiss();
   };
@@ -90,9 +94,12 @@ const CreateTask = ({
       task: text,
       activeTags: activeTag,
       background: selectBG,
-      selectDate: selectDate
+      selectDate: selectDate,
+      selectTime: selectTime
     };
-
+    console.log("====================================");
+    console.log(selectTime);
+    console.log("====================================");
     isNew
       ? dispatch(createTask(payload))
       : dispatch(editingTaskTC(payload, editTask.id));
@@ -113,6 +120,8 @@ const CreateTask = ({
   function hideKeyboard() {
     keyboard == "keyboard" ? searchInput.current.focus() : Keyboard.dismiss();
   }
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <BlurView tint='dark' intensity={Platform.OS === "ios" ? 50 : 90}>
@@ -185,52 +194,55 @@ const CreateTask = ({
                 style={styles.textInput}
               />
 
-              {/* {completed && (
-                <TouchableOpacity
-                  style={styles.addButton}
-                  onPress={createNewTask}>
-                  <Text style={{ padding: 3, textAlign: "center" }}>
-                    {isNew ? "Добавить" : "Редактировать"}
-                  </Text>
-                </TouchableOpacity>
-              )} */}
               <View style={styles.additionalBar}>
-                <HStack space={2} style={styles.box}>
-                  {icons.map((value) => (
-                    <Button
-                      onPress={() => openModal(dispatch, value.name)}
-                      key={value.id.toString()}
-                      mb='2'
-                      variant='solid'
-                      bg='coolGray.700'
-                      colorScheme='coolGray'
-                      borderRadius='xl'
-                      leftIcon={
-                        <Icon
-                          as={MaterialCommunityIcons}
-                          size='6'
-                          name={value.name}
-                          _dark={{
-                            color: "warmGray.50"
-                          }}
-                          color={
-                            value.name === "palette"
-                              ? selectBG === "rgba(54,58,75,0.6)"
-                                ? "warmGray.50"
-                                : selectBG
-                              : "warmGray.50"
-                          }
-                        />
-                      }>
-                      {selectDate && value.name === "calendar-clock" && (
-                        <Text style={styles.textInput}>
-                          {moment(selectDate).format("DD MMM")}
-                        </Text>
-                      )}
-                    </Button>
-                  ))}
-                </HStack>
-                <View></View>
+                <ScrollView
+                  style={{ flex: 1, paddingRight: 15, marginRight: 5 }}
+                  horizontal>
+                  <HStack space={1} style={styles.box}>
+                    {icons.map((value) => (
+                      <Button
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                        onPress={() => openModal(dispatch, value.name)}
+                        key={value.id.toString()}
+                        mb='2'
+                        variant='solid'
+                        bg='coolGray.700'
+                        colorScheme='coolGray'
+                        borderRadius='xl'
+                        leftIcon={
+                          <Icon
+                            as={MaterialCommunityIcons}
+                            size='6'
+                            name={value.name}
+                            _dark={{
+                              color: "warmGray.50"
+                            }}
+                            color={
+                              value.name === "palette"
+                                ? selectBG === "rgba(54,58,75,0.6)"
+                                  ? "warmGray.50"
+                                  : selectBG
+                                : "warmGray.50"
+                            }
+                          />
+                        }>
+                        {selectDate && value.name === "calendar-clock" ? (
+                          <Text style={styles.text}>
+                            {moment(selectDate).format("DD MMM")}
+                          </Text>
+                        ) : selectTime && value.name === "clock" ? (
+                          <Text style={styles.text}>
+                            {moment(selectTime).format("HH:mm")}
+                          </Text>
+                        ) : null}
+                      </Button>
+                    ))}
+                  </HStack>
+                </ScrollView>
+
                 <IconButton
                   onPress={hideKeyboard}
                   mb='2'
@@ -252,12 +264,13 @@ const CreateTask = ({
                 />
               </View>
             </View>
-
             <View style={{ paddingHorizontal: 15 }}>
               {visibleModal && (
                 <CustomModal
-                  languages={languages}
+                  isDatePickerVisible={isDatePickerVisible}
+                  setDatePickerVisibility={setDatePickerVisibility}
                   setSelectTime={setSelectTime}
+                  languages={languages}
                   selectDate={selectDate}
                   setSelectDate={setSelectDate}
                   name={_name}

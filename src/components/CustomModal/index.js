@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Dimensions, TouchableOpacity } from "react-native";
-import { Modal, Center, HStack, View, theme } from "native-base";
+import { Dimensions } from "react-native";
+import { Modal, Center, View, theme } from "native-base";
 import {
-  CreateTag,
   CustomCalendar,
   CustomSelectTag,
-  CustomSwatcherColor
+  CustomSwatcherColor,
+  CustomTimePicker
 } from "../";
 
 import { useDispatch } from "react-redux";
 const CustomModal = ({
+  setDatePickerVisibility,
+  isDatePickerVisible,
   languages,
   selectDate,
   setSelectTime,
@@ -28,6 +30,56 @@ const CustomModal = ({
   const [selectColor, setSelectColor] = useState(selectBG && selectBG);
   const closeModal = () => {
     dispatch(setVisibleModalTC(false));
+  };
+  const renderMetod = (name) => {
+    switch (name) {
+      case "clock":
+        return (
+          <CustomTimePicker
+            closeModal={closeModal}
+            setSelectTime={setSelectTime}
+            isDatePickerVisible={isDatePickerVisible}
+            setDatePickerVisibility={setDatePickerVisibility}
+          />
+        );
+      case "tag":
+        return (
+          <CustomSelectTag
+            languages={languages}
+            activeTag={activeTag}
+            closeModal={closeModal}
+            theme={theme}
+            tags={tags}
+            handleSelectTag={handleSelectTag}
+          />
+        );
+      case "calendar-clock":
+        return (
+          <CustomCalendar
+            isDatePickerVisible={isDatePickerVisible}
+            setDatePickerVisibility={setDatePickerVisibility}
+            languages={languages}
+            setSelectTime={setSelectTime}
+            selectDate={selectDate}
+            setSelectDate={setSelectDate}
+            closeModal={closeModal}
+            theme={theme}
+          />
+        );
+      case "palette":
+        return (
+          <CustomSwatcherColor
+            languages={languages}
+            closeModal={closeModal}
+            setSelectBG={setSelectBG}
+            selectColor={selectColor}
+            setSelectColor={setSelectColor}
+            theme={theme}
+          />
+        );
+      default:
+        return;
+    }
   };
   return (
     <Center>
@@ -54,38 +106,7 @@ const CustomModal = ({
             bg='#2D3142'
             colorScheme='#fff'
           />
-          <View>
-            {name === "calendar-clock" && (
-              <CustomCalendar
-                languages={languages}
-                setSelectTime={setSelectTime}
-                selectDate={selectDate}
-                setSelectDate={setSelectDate}
-                closeModal={closeModal}
-                theme={theme}
-              />
-            )}
-            {name === "palette" && (
-              <CustomSwatcherColor
-                languages={languages}
-                closeModal={closeModal}
-                setSelectBG={setSelectBG}
-                selectColor={selectColor}
-                setSelectColor={setSelectColor}
-                theme={theme}
-              />
-            )}
-            {name === "bookmark" && (
-              <CustomSelectTag
-                languages={languages}
-                activeTag={activeTag}
-                closeModal={closeModal}
-                theme={theme}
-                tags={tags}
-                handleSelectTag={handleSelectTag}
-              />
-            )}
-          </View>
+          <View>{renderMetod(name)}</View>
         </Modal.Content>
       </Modal>
     </Center>

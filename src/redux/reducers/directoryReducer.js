@@ -8,7 +8,7 @@ export const initialState = {
   isDone: "false",
   completed: false,
   visibleModal: false,
-  tags: []
+  tags: [{ id: 1, value: "#Робота", color: "#AC8AEF" }]
 };
 export const directoryReducer = (state = initialState, action) => {
   switch (action.type) {
