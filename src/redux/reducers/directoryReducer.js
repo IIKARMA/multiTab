@@ -8,7 +8,15 @@ export const initialState = {
   isDone: "false",
   completed: false,
   visibleModal: false,
-  tags: [{ id: 1, value: "#Робота", color: "#AC8AEF" }]
+  tags: [
+    {
+      id: 1,
+      value: "#Робота",
+      color: "#AC8AEF"
+    },
+    { id: 2, value: "#Дом", color: "#FF8E86" },
+    { id: 3, value: "#Інше", color: "#167D7F" }
+  ]
 };
 export const directoryReducer = (state = initialState, action) => {
   switch (action.type) {

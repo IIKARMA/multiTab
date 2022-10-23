@@ -39,6 +39,7 @@ const icons = [
   }
 ];
 const CreateTask = ({
+  type,
   isDone,
   languages,
   setDisableCompleted,
@@ -48,6 +49,7 @@ const CreateTask = ({
   visibleModal,
   setVisibleModalTC,
   createTask,
+  createNotes,
   editingTaskTC,
   navigation,
   editTask,
@@ -90,26 +92,26 @@ const CreateTask = ({
   };
   const createNewTask = () => {
     const payload = {
-      heading: headerText,
+      heading: headerText && headerText,
       task: text,
       activeTags: activeTag,
       background: selectBG,
       selectDate: selectDate,
       selectTime: selectTime
     };
-    console.log("====================================");
-    console.log(selectTime);
-    console.log("====================================");
-    isNew
-      ? dispatch(createTask(payload))
-      : dispatch(editingTaskTC(payload, editTask.id));
+
+    if (isNew) {
+      type === "notes"
+        ? dispatch(createTask(payload))
+        : dispatch(createNotes(payload));
+    } else type === "notes" && dispatch(editingTaskTC(payload, editTask.id));
     Keyboard.dismiss();
     dispatch(setDisableCompleted(false));
     dispatch(setIsDone(!isDone));
   };
 
   useEffect(() => {
-    headerText.trim("").length
+    headerText.trim("").length || text.trim("").length
       ? dispatch(setDisableCompleted(true))
       : dispatch(setDisableCompleted(false));
   }, [text, headerText]);
@@ -153,32 +155,20 @@ const CreateTask = ({
                 styles.inputContainer,
                 { borderColor: selectBG === "#fff" ? theme.card : selectBG }
               ]}>
-              <TextInput
-                onFocus={() => setKeyboard("keyboard-off")}
-                onBlur={() => setKeyboard("keyboard")}
-                ref={searchInput}
-                keyboardAppearance='dark'
-                value={headerText}
-                onChangeText={(value) => setHeaderText(value)}
-                placeholderTextColor={theme.text}
-                placeholder={languages.name}
-                style={styles.textInput}
-              />
-              {task?.activeTags ||
-                (activeTag.length > 0 && (
-                  <Icon
-                    top={-5}
-                    right={5}
-                    position={"absolute"}
-                    as={MaterialCommunityIcons}
-                    size='12'
-                    name={"bookmark"}
-                    _dark={{
-                      color: "coolGray.500"
-                    }}
-                    color='coolGray.500'
-                  />
-                ))}
+              {type === "notes" && (
+                <TextInput
+                  onFocus={() => setKeyboard("keyboard-off")}
+                  onBlur={() => setKeyboard("keyboard")}
+                  ref={searchInput}
+                  keyboardAppearance='dark'
+                  value={headerText}
+                  onChangeText={(value) => setHeaderText(value)}
+                  placeholderTextColor={theme.text}
+                  placeholder={languages.name}
+                  style={styles.textInput}
+                />
+              )}
+
               <TextInput
                 onFocus={() => setKeyboard("keyboard-off")}
                 onBlur={() => setKeyboard("keyboard")}

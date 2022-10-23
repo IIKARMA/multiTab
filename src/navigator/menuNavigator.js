@@ -110,7 +110,7 @@ const MenuNavigator = () => {
                 p={3}
                 mb='4'
                 variant='solid'
-                bg='teal.400'
+                bg='teal.600'
                 colorScheme='teal'
                 borderRadius='full'
                 icon={

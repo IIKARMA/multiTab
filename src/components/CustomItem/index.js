@@ -1,30 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { theme } from "../../core/colors";
 import {
-  Button,
   Menu,
-  NativeBaseProvider,
   Pressable,
-  useTheme,
-  HeaderText,
   Text,
   Box,
   Container,
   VStack,
-  HStack,
-  View
+  Checkbox
 } from "native-base";
 import { StyleSheet, Vibration } from "react-native";
 import { useDispatch } from "react-redux";
 import { removeTaskTC, editingTaskTC } from "../../redux/reducers/tasksReducer";
-import { setVisibleModalTC } from "../../redux/reducers/directoryReducer";
+import moment from "moment";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const CustomItem = ({
+  type,
   id,
   task,
   heading,
   background,
   activeTags,
   selectDate,
+  selectTime,
   navigation,
   languages
 }) => {
@@ -38,7 +37,7 @@ const CustomItem = ({
         opacity={0.7}
         shadow={5}
         trigger={(triggerProps) => {
-          return (
+          return type === "notes" ? (
             <Pressable accessibilityLabel='More options menu' {...triggerProps}>
               <VStack
                 zIndex={2}
@@ -65,6 +64,10 @@ const CustomItem = ({
                 </Text>
               </VStack>
             </Pressable>
+          ) : (
+            <Checkbox value='Email' key={id} my='1'>
+              <Text strikeThrough> {task}</Text>
+            </Checkbox>
           );
         }}>
         <Menu.Item
@@ -72,9 +75,17 @@ const CustomItem = ({
           color={theme.secondText}
           onPress={() =>
             navigation.navigate("NewTask", {
-              screen: "NewTask",
+              type: type,
               isNew: false,
-              task: { id, task, heading, background, activeTags, selectDate }
+              task: {
+                id,
+                task,
+                heading,
+                background,
+                activeTags,
+                selectDate,
+                selectTime
+              }
             })
           }>
           <Text color={theme.text}>{languages.edit}</Text>

@@ -22,6 +22,8 @@ export default connect(mapStateToProps, { getInfo })(({ task, isLaunched }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getInfo("tasks"));
+    dispatch(getInfo("notes"));
     if (!isLaunched) {
       dispatch(createDefaultTags("tags"));
       dispatch(setIsLauched(true));

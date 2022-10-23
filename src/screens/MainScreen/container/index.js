@@ -10,23 +10,31 @@ LogBox.ignoreLogs([
 ]);
 const mapStateToProps = ({ tasks, app }) => ({
   task: tasks,
+  notes: tasks,
   languages: app.languages
 });
 
-export default connect(mapStateToProps, { getInfo })(({ task, languages }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInfo("tasks"));
-  }, []);
+export default connect(mapStateToProps, { getInfo })(
+  ({ task, notes, languages }) => {
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    // useEffect(() => {
+    //   dispatch(getInfo("tasks"));
+    // }, []);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      return unsubscribe;
-    });
-  }, [task]);
+    useEffect(() => {
+      const unsubscribe = navigation.addListener("focus", () => {
+        return unsubscribe;
+      });
+    }, [task]);
 
-  return (
-    <MainScreen navigation={navigation} tasks={task} languages={languages} />
-  );
-});
+    return (
+      <MainScreen
+        navigation={navigation}
+        tasks={task}
+        notes={notes}
+        languages={languages}
+      />
+    );
+  }
+);

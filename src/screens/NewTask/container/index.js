@@ -4,6 +4,7 @@ import { connect, useDispatch } from "react-redux";
 // import { getInfo } from "../../../redux/reducers/directoryReducer";
 import { useNavigation } from "@react-navigation/native";
 import {
+  createNotes,
   createTask,
   editingTaskTC,
   setTask
@@ -30,6 +31,7 @@ const mapStateToProps = ({ tasks, directory, app }) => ({
 });
 
 export default connect(mapStateToProps, {
+  createNotes,
   setVisibleModalTC,
   createTask,
   setIsDone,
@@ -42,6 +44,9 @@ export default connect(mapStateToProps, {
 
   useEffect(() => {
     dispatch(getInfo("tags"));
+    dispatch(getInfo("notes"));
+    dispatch(getInfo("tasks"));
+
     const unsubscribe = navigation.addListener("focus", () => {
       return unsubscribe;
     });
@@ -49,6 +54,7 @@ export default connect(mapStateToProps, {
 
   return (
     <NewTask
+      createNotes={createNotes}
       languages={languages}
       isDone={isDone}
       setDisableCompleted={setDisableCompleted}

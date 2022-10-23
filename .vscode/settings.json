@@ -3,6 +3,7 @@
         "Board",
         "card",
         "editing",
+        "Extractor",
         "Icons",
         "Modalize",
         "notes",
@@ -18,5 +19,6 @@
         "theme",
         "Touchable"
     ],
-    "reactSnippets.settings.importReactOnTop": true
+    "reactSnippets.settings.importReactOnTop": true,
+    "compile-hero.disable-compile-files-on-did-save-code": false
 }

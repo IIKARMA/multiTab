@@ -16,7 +16,7 @@ export const tasksReducer = (state = initialState, action) => {
     case SET_NOTES:
       return {
         ...state,
-        tasks: action.notes
+        notes: action.notes
       };
 
     default:
@@ -30,13 +30,35 @@ export const getInfo = (type) => async (dispatch) => {
   const storageInfo = JSON.parse(await AsyncStorage.getItem(`@${type}`));
   if (storageInfo) {
     switch (type) {
-      case "tasks":
+      case "tasks": {
         dispatch(setTask(storageInfo));
+      }
+
+      case "notes": {
+        dispatch(setNotes(storageInfo));
+      }
 
       default:
-        break;
     }
-  } else dispatch(setTask([]));
+  } else {
+    dispatch(setTask([]));
+    dispatch(setNotes([]));
+  }
+};
+export const createNotes = (payload) => async (dispatch) => {
+  const notes = {
+    ...payload,
+    id: `${+new Date()}`
+  };
+  const storageTask = JSON.parse(await AsyncStorage.getItem(`@notes`));
+
+  if (!storageTask)
+    await AsyncStorage.setItem(`@notes`, JSON.stringify([notes]));
+  else {
+    const jsonTask = storageTask.concat(notes);
+    await AsyncStorage.setItem(`@notes`, JSON.stringify(jsonTask));
+  }
+  dispatch(getInfo("notes"));
 };
 export const createTask = (payload) => async (dispatch) => {
   const task = {

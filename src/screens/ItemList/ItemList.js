@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Icon } from "native-base";
+import { Icon, Checkbox } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import { CustomItem } from "../../components";
-const ItemList = ({ navigation, tasks, languages }) => {
+const ItemList = ({ navigation, items, languages, type }) => {
   const [listTasks, setListTasks] = useState([]);
   useEffect(() => {
-    setListTasks(tasks.tasks);
-  }, [tasks]);
+    setListTasks(items);
+  }, [items]);
 
   return (
     <View style={styles.container}>
@@ -16,14 +16,16 @@ const ItemList = ({ navigation, tasks, languages }) => {
         <View style={styles.headerContainer}>
           <TouchableOpacity
             style={styles.box}
-            onPress={() => navigation.navigate("ItemList", { items: tasks })}>
+            onPress={() => navigation.navigate("ItemList", { items: items })}>
             <Icon
               as={MaterialCommunityIcons}
               size='6'
-              name={"file-edit"}
-              color='amber.400'
+              name={type === "notes" ? "file-edit" : "clipboard-check"}
+              color={type === "notes" ? "amber.400" : "teal.600"}
             />
-            <Text style={styles.headerText}>{languages.notes}</Text>
+            <Text style={styles.headerText}>
+              {type === "notes" ? languages.notes : languages.tasks}
+            </Text>
             <Icon
               as={MaterialCommunityIcons}
               size='5'
@@ -35,24 +37,28 @@ const ItemList = ({ navigation, tasks, languages }) => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("NewTask", {
-                isNew: true
+                isNew: true,
+                type: type
               })
             }
             style={styles.addButton}>
             <Text style={styles.addText}>{languages.add}</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {listTasks.length
+        <ScrollView
+          horizontal={type === "notes" && true}
+          showsHorizontalScrollIndicator={false}>
+          {listTasks?.length > 0
             ? listTasks.reverse().map((value) => (
                 <View
                   key={value.id}
                   style={[
-                    styles.cardItem,
-                    { backgroundColor: value.background }
+                    type === "notes" ? styles.cardItem : styles.check,
+                    { backgroundColor: type === "notes" && value.background }
                   ]}>
                   <CustomItem
                     {...value}
+                    type={type}
                     navigation={navigation}
                     languages={languages}
                   />

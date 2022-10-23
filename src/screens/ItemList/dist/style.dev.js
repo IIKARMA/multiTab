@@ -1,18 +1,25 @@
-import { StyleSheet } from "react-native";
-import { theme } from "../../core/colors";
+"use strict";
 
-export const styles = StyleSheet.create({
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styles = void 0;
+
+var _reactNative = require("react-native");
+
+var _colors = require("../../core/colors");
+
+var styles = _reactNative.StyleSheet.create({
   container: {
     marginBottom: 20,
     backfaceVisibility: "visible",
     alignSelf: "center",
-    backgroundColor: theme.card,
+    backgroundColor: _colors.theme.card,
     borderRadius: 20,
     padding: 10,
     overflow: "hidden",
     width: "90%"
   },
-
   headerContainer: {
     paddingHorizontal: 5,
     flexDirection: "row",
@@ -29,20 +36,23 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 5,
     fontSize: 18,
-    borderBottomColor: theme.secondText,
-    color: theme.text
+    borderBottomColor: _colors.theme.secondText,
+    color: _colors.theme.text
   },
-  addButton: { backgroundColor: theme.item, borderRadius: 10 },
+  addButton: {
+    backgroundColor: _colors.theme.item,
+    borderRadius: 10
+  },
   addText: {
     padding: 8,
     fontSize: 12,
-    borderBottomColor: theme.secondText,
-    color: theme.text
+    borderBottomColor: _colors.theme.secondText,
+    color: _colors.theme.text
   },
   cardItem: {
-    backgroundColor: theme.item,
+    backgroundColor: _colors.theme.item,
     marginTop: 10,
-    borderColor: theme.item,
+    borderColor: _colors.theme.item,
     borderWidth: 2,
     borderRadius: 10,
     marginLeft: 5,
@@ -51,13 +61,19 @@ export const styles = StyleSheet.create({
   },
   check: {
     marginVertical: 4,
-    backgroundColor: theme.card
+    backgroundColor: _colors.theme.card
   },
   nameItem: {
-    color: theme.text,
+    color: _colors.theme.text,
     fontSize: 18,
     paddingBottom: 20,
     fontWeight: "600"
   },
-  textItem: { color: theme.text, fontSize: 16, fontWeight: "500" }
+  textItem: {
+    color: _colors.theme.text,
+    fontSize: 16,
+    fontWeight: "500"
+  }
 });
+
+exports.styles = styles;

@@ -14,14 +14,19 @@ const NewTask = ({
   createTask,
   navigation,
   editingTaskTC,
+  createNotes,
   visibleModal,
   setVisibleModalTC
 }) => {
-  const { task, isNew } = useRoute().params;
-
+  const { type, task, isNew } = useRoute().params;
+  console.log("====================================");
+  console.log(task);
+  console.log("====================================");
   return (
     <View style={{ backgroundColor: theme.card }}>
       <CreateTask
+        createNotes={createNotes}
+        type={type}
         languages={languages}
         isDone={isDone}
         setDisableCompleted={setDisableCompleted}
