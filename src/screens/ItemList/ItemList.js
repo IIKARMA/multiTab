@@ -58,6 +58,7 @@ const ItemList = ({ navigation, items, languages, type }) => {
           </View>
         </View>
         <ScrollView
+          style={{ maxHeight: 150 }}
           horizontal={type === "tasks" && true}
           showsHorizontalScrollIndicator={false}>
           {listTasks?.length > 0
