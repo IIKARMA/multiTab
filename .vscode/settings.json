@@ -1,24 +1,6 @@
 {
     "cSpell.words": [
-        "Board",
-        "card",
-        "editing",
-        "Extractor",
-        "Icons",
-        "Modalize",
-        "notes",
-        "orange",
-        "palette",
-        "press",
-        "Pressable",
-        "Reducer",
-        "reducers",
-        "Swatcher",
-        "swatches",
-        "teal",
-        "theme",
-        "Touchable"
+        "Pomodoro"
     ],
-    "reactSnippets.settings.importReactOnTop": true,
-    "compile-hero.disable-compile-files-on-did-save-code": false
+    "cSpell.language": "uk,en,en-GB,en-US,lorem"
 }

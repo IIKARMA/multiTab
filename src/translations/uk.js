@@ -2,6 +2,7 @@ export const uk = {
   tasks: "Задачі",
   notes: "Нотатки",
   add: "Добавити",
+  pomodoro: "Помодоро",
   edit: "Редагувати",
   delete: "Видалити",
   new_note: "Нова замітка",

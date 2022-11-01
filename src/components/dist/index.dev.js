@@ -75,6 +75,12 @@ Object.defineProperty(exports, "CreateTask", {
     return _CreateTask["default"];
   }
 });
+Object.defineProperty(exports, "PomodoroBlock", {
+  enumerable: true,
+  get: function get() {
+    return _PomodoroBlock["default"];
+  }
+});
 Object.defineProperty(exports, "Header", {
   enumerable: true,
   get: function get() {
@@ -105,6 +111,8 @@ var _CreateTag = _interopRequireDefault(require("./CreateTag"));
 var _CreateNotes = _interopRequireDefault(require("./CreateNotes/CreateNotes"));
 
 var _CreateTask = _interopRequireDefault(require("./CreateTask"));
+
+var _PomodoroBlock = _interopRequireDefault(require("./PomodoroBlock/PomodoroBlock"));
 
 var _Header = _interopRequireDefault(require("./Header/Header"));
 

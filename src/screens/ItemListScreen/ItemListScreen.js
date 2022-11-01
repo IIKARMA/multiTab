@@ -24,13 +24,13 @@ const Item = ({ item }) => {
         style={[
           styles.card,
           styles.item,
-          { backgroundColor: item.item?.background }
+          { backgroundColor: item?.item?.background }
         ]}>
         <View>
           <Text style={[styles.text, { fontWeight: "bold" }]}>
             {item.item.heading}
           </Text>
-          <Text style={styles.text}>{item.item.task}</Text>
+          <Text style={styles.text}>{item.item?.task}</Text>
         </View>
         <View
           style={{
@@ -71,7 +71,7 @@ const ItemListScreen = () => {
   const { items } = useRoute().params;
   const [userItems, setUserItems] = useState([]);
   useEffect(() => {
-    let data = items.tasks.reduce((acc, curr) => {
+    let data = items?.reduce((acc, curr) => {
       const key = curr["selectDate"];
       const value = acc[key] ? [...acc[key], curr] : [curr];
       acc[key] = value;

@@ -4,11 +4,11 @@ import { connect, useDispatch } from "react-redux";
 // import { getInfo } from "../../../redux/reducers/directoryReducer";
 import { useNavigation } from "@react-navigation/native";
 import {
-  createNotes,
   createTask,
   editingTaskTC,
   setTask
 } from "../../../redux/reducers/tasksReducer";
+import { createNotes } from "../../../redux/reducers/notesReducer";
 import {
   setVisibleModalTC,
   setDisableCompleted,
@@ -21,9 +21,10 @@ import { LogBox } from "react-native";
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state"
 ]);
-const mapStateToProps = ({ tasks, directory, app }) => ({
+const mapStateToProps = ({ tasks, directory, app, notes }) => ({
   languages: app.languages,
   tasks: tasks,
+  notes: notes,
   visibleModal: directory.visibleModal,
   tags: directory.tags,
   completed: directory.completed,
@@ -38,7 +39,7 @@ export default connect(mapStateToProps, {
   setDisableCompleted,
   setTask,
   getInfo
-})(({ tasks, visibleModal, tags, completed, isDone, languages }) => {
+})(({ tasks, visibleModal, tags, completed, isDone, notes, languages }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ export default connect(mapStateToProps, {
 
   return (
     <NewTask
+      notes={notes}
       createNotes={createNotes}
       languages={languages}
       isDone={isDone}

@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { theme } from "../../core/colors";
-import {
-  Menu,
-  Pressable,
-  Text,
-  Box,
-  Container,
-  VStack,
-  Checkbox
-} from "native-base";
-import { StyleSheet, Vibration } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Menu, Pressable, Text, Box, Container, VStack } from "native-base";
 import { useDispatch } from "react-redux";
 import { removeTaskTC, editingTaskTC } from "../../redux/reducers/tasksReducer";
-import moment from "moment";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { completedNotes } from "../../redux/reducers/notesReducer";
+import Checkbox from "expo-checkbox";
 
 const CustomItem = ({
   type,
   id,
   task,
+  completed,
   heading,
   background,
   activeTags,
@@ -28,17 +21,36 @@ const CustomItem = ({
   languages
 }) => {
   const dispatch = useDispatch();
+  const [isChecked, setChecked] = useState();
+  const onCompleted = () => {
+    dispatch(completedNotes(id));
+  };
+
   return (
     <Box key={id}>
       <Menu
         placement='bottom center'
-        bg={"blueGray.500"}
+        bg={"#333"}
         color={theme.text}
-        opacity={0.7}
+        // opacity={0.7}
         shadow={5}
         trigger={(triggerProps) => {
           return type === "notes" ? (
-            <Pressable accessibilityLabel='More options menu' {...triggerProps}>
+            <TouchableOpacity style={styles.section}>
+              <Checkbox
+                style={styles.checkbox}
+                value={completed}
+                onValueChange={onCompleted}
+              />
+              <Text style={styles.text} strikeThrough={completed}>
+                {heading}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <Pressable
+              accessibilityLabel='More options menu'
+              {...triggerProps}
+              key={id}>
               <VStack
                 zIndex={2}
                 padding={2}
@@ -64,10 +76,6 @@ const CustomItem = ({
                 </Text>
               </VStack>
             </Pressable>
-          ) : (
-            <Checkbox value='Email' key={id} my='1'>
-              <Text strikeThrough> {task}</Text>
-            </Checkbox>
           );
         }}>
         <Menu.Item
@@ -101,3 +109,24 @@ const CustomItem = ({
   );
 };
 export default CustomItem;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
+    marginVertical: 32
+  },
+  section: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  text: {
+    color: theme.secondText,
+    fontSize: 18,
+    fontWeight: "500",
+    letterSpacing: 1.5
+  },
+  paragraph: {
+    fontSize: 15
+  },
+  checkbox: { borderRadius: 5, marginRight: 7 }
+});

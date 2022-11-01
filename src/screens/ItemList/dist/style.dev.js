@@ -60,6 +60,7 @@ var styles = _reactNative.StyleSheet.create({
     width: 160
   },
   check: {
+    marginLeft: 10,
     marginVertical: 4,
     backgroundColor: _colors.theme.card
   },

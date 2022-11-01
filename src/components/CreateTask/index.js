@@ -38,8 +38,21 @@ const icons = [
     id: 4
   }
 ];
+const iconsTask = [
+  {
+    name: "tag",
+    id: 1
+  },
+  { id: 3, name: "brain" },
+  { id: 5, name: "flag" },
+  {
+    name: "calendar-clock",
+    id: 2
+  }
+];
 const CreateTask = ({
   type,
+  createNotes,
   isDone,
   languages,
   setDisableCompleted,
@@ -49,12 +62,12 @@ const CreateTask = ({
   visibleModal,
   setVisibleModalTC,
   createTask,
-  createNotes,
   editingTaskTC,
   navigation,
   editTask,
   isNew
 }) => {
+  const [activeIcons, setActiveIcons] = useState([]);
   const [keyboard, setKeyboard] = useState("keyboard");
   const dispatch = useDispatch();
   const [_name, setName] = useState("");
@@ -101,10 +114,25 @@ const CreateTask = ({
     };
 
     if (isNew) {
-      type === "notes"
-        ? dispatch(createTask(payload))
-        : dispatch(createNotes(payload));
-    } else type === "notes" && dispatch(editingTaskTC(payload, editTask.id));
+      dispatch(createTask(payload));
+    } else dispatch(editingTaskTC(payload, editTask.id));
+    Keyboard.dismiss();
+    dispatch(setDisableCompleted(false));
+    dispatch(setIsDone(!isDone));
+  };
+  const createNewNotes = () => {
+    const payload = {
+      heading: headerText && headerText,
+      completed: false,
+      activeTags: activeTag,
+      difficulty: "Найвища",
+      prioritet: "4",
+      selectDate: selectDate,
+      selectTime: selectTime
+    };
+
+    isNew && dispatch(createNotes(payload));
+
     Keyboard.dismiss();
     dispatch(setDisableCompleted(false));
     dispatch(setIsDone(!isDone));
@@ -116,9 +144,12 @@ const CreateTask = ({
       : dispatch(setDisableCompleted(false));
   }, [text, headerText]);
   useEffect(() => {
-    isDone && completed && createNewTask();
+    isDone && completed && type === "tasks" && createNewTask();
+    isDone && completed && type === "notes" && createNewNotes();
   }, [isDone]);
-
+  useEffect(() => {
+    setActiveIcons(type === "notes" ? iconsTask : icons);
+  }, []);
   function hideKeyboard() {
     keyboard == "keyboard" ? searchInput.current.focus() : Keyboard.dismiss();
   }
@@ -155,19 +186,17 @@ const CreateTask = ({
                 styles.inputContainer,
                 { borderColor: selectBG === "#fff" ? theme.card : selectBG }
               ]}>
-              {type === "notes" && (
-                <TextInput
-                  onFocus={() => setKeyboard("keyboard-off")}
-                  onBlur={() => setKeyboard("keyboard")}
-                  ref={searchInput}
-                  keyboardAppearance='dark'
-                  value={headerText}
-                  onChangeText={(value) => setHeaderText(value)}
-                  placeholderTextColor={theme.text}
-                  placeholder={languages.name}
-                  style={styles.textInput}
-                />
-              )}
+              <TextInput
+                onFocus={() => setKeyboard("keyboard-off")}
+                onBlur={() => setKeyboard("keyboard")}
+                ref={searchInput}
+                keyboardAppearance='dark'
+                value={headerText}
+                onChangeText={(value) => setHeaderText(value)}
+                placeholderTextColor={theme.text}
+                placeholder={languages.name}
+                style={styles.textInput}
+              />
 
               <TextInput
                 onFocus={() => setKeyboard("keyboard-off")}
@@ -189,7 +218,7 @@ const CreateTask = ({
                   style={{ flex: 1, paddingRight: 15, marginRight: 5 }}
                   horizontal>
                   <HStack space={1} style={styles.box}>
-                    {icons.map((value) => (
+                    {activeIcons?.map((value) => (
                       <Button
                         style={{
                           alignItems: "center",

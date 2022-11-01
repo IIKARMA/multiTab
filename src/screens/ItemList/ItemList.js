@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Icon, Checkbox } from "native-base";
+import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import { CustomItem } from "../../components";
@@ -9,9 +9,9 @@ const ItemList = ({ navigation, items, languages, type }) => {
   useEffect(() => {
     setListTasks(items);
   }, [items]);
-
+  console.table(items);
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={items.id}>
       <View>
         <View style={styles.headerContainer}>
           <TouchableOpacity
@@ -20,50 +20,64 @@ const ItemList = ({ navigation, items, languages, type }) => {
             <Icon
               as={MaterialCommunityIcons}
               size='6'
-              name={type === "notes" ? "file-edit" : "clipboard-check"}
-              color={type === "notes" ? "amber.400" : "teal.600"}
+              name={type === "notes" ? "format-list-checks" : "file-edit"}
+              color={type === "notes" ? "#e63946" : "amber.400"}
             />
             <Text style={styles.headerText}>
-              {type === "notes" ? languages.notes : languages.tasks}
+              {type === "notes" ? languages.tasks : languages.notes}
             </Text>
-            <Icon
-              as={MaterialCommunityIcons}
-              size='5'
-              name='chevron-right-circle'
-              color='gray.500'
-            />
+            {type === "notes" && (
+              <View style={styles.completedCount}>
+                <Text style={[styles.textItem, { fontSize: 14 }]}>
+                  {listTasks.filter((item) => item.completed).length}/
+                  {listTasks.length}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("NewTask", {
-                isNew: true,
-                type: type
-              })
-            }
-            style={styles.addButton}>
-            <Text style={styles.addText}>{languages.add}</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("NewTask", {
+                  isNew: true,
+                  type: type
+                })
+              }
+              style={styles.addButton}>
+              <Text style={styles.addText}>{languages.add}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ItemList", { items: items })}>
+              <Icon
+                as={MaterialCommunityIcons}
+                size='6'
+                name='chevron-right'
+                color='gray.500'
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <ScrollView
-          horizontal={type === "notes" && true}
+          horizontal={type === "tasks" && true}
           showsHorizontalScrollIndicator={false}>
           {listTasks?.length > 0
-            ? listTasks.reverse().map((value) => (
-                <View
-                  key={value.id}
-                  style={[
-                    type === "notes" ? styles.cardItem : styles.check,
-                    { backgroundColor: type === "notes" && value.background }
-                  ]}>
-                  <CustomItem
-                    {...value}
-                    type={type}
-                    navigation={navigation}
-                    languages={languages}
-                  />
-                </View>
-              ))
+            ? listTasks
+                ?.sort((a, b) => a - b)
+                .map((value) => (
+                  <View
+                    key={value.id}
+                    style={[
+                      type === "notes" ? styles.check : styles.cardItem,
+                      { backgroundColor: type === "tasks" && value.background }
+                    ]}>
+                    <CustomItem
+                      {...value}
+                      type={type}
+                      navigation={navigation}
+                      languages={languages}
+                    />
+                  </View>
+                ))
             : null}
         </ScrollView>
       </View>

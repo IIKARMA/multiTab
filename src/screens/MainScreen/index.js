@@ -4,7 +4,7 @@ import MenuNavigator from "../../navigator/menuNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ItemList } from "../";
 import { styles } from "./styles";
-import { Header } from "../../components";
+import { Header, PomodoroBlock } from "../../components";
 const MainScreen = ({ navigation, tasks, notes, languages }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -24,14 +24,15 @@ const MainScreen = ({ navigation, tasks, notes, languages }) => {
           navigation={navigation}
           items={tasks.tasks}
           languages={languages}
-          type={"notes"}
+          type={"tasks"}
         />
         <ItemList
           navigation={navigation}
-          items={tasks.notes}
+          items={notes.notes}
           languages={languages}
-          type={"tasks"}
+          type={"notes"}
         />
+        <PomodoroBlock languages={languages} />
         <View style={styles.actionMenu}>
           <MenuNavigator />
         </View>

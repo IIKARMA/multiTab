@@ -12,5 +12,8 @@ export { default as CreateTag } from "./CreateTag";
 export { default as CreateNotes } from "./CreateNotes/CreateNotes";
 export { default as CreateTask } from "./CreateTask";
 
+export { default as PomodoroBlock } from "./PomodoroBlock/PomodoroBlock";
+export { default as Timer } from "./Timer/Timer";
+
 export { default as Header } from "./Header/Header";
 // export { default as Layout } from "./Layout";

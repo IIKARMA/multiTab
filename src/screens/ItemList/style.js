@@ -49,7 +49,14 @@ export const styles = StyleSheet.create({
     height: 140,
     width: 160
   },
+  completedCount: {
+    paddingHorizontal: 5,
+    borderRadius: 8,
+    borderWidth: 1.2,
+    borderColor: theme.secondNavigator
+  },
   check: {
+    marginLeft: 10,
     marginVertical: 4,
     backgroundColor: theme.card
   },
