@@ -32,7 +32,7 @@ const PomodoroBlock = ({ languages }) => {
       </View>
 
       <View style={styles.body}>
-        <Timer play={play} />
+        <Timer duration={10} play={play} startPomodoro={startPomodoro} />
         <TouchableOpacity onPress={startPomodoro} style={styles.buttonPlay}>
           <Icon
             as={MaterialCommunityIcons}

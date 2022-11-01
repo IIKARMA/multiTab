@@ -1,14 +1,25 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useCountdown } from "react-native-countdown-circle-timer";
 import { timeFormat } from "../../utilits/timeFormat";
 import { theme } from "../../core/colors";
-const Timer = ({ play }) => {
+const Timer = ({ duration, play, startPomodoro }) => {
   const { remainingTime } = useCountdown({
+    onComplete: () => {
+      return {
+        shouldRepeat: true,
+        delay: 1.5,
+        newInitialRemainingTime: 1200
+      };
+    },
+
     isPlaying: play,
-    duration: 1200,
+    duration: duration,
     colors: "#abc"
   });
+  useEffect(() => {
+    remainingTime === 1200 && startPomodoro();
+  }, [remainingTime]);
   return (
     <Text
       style={{
