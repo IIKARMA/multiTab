@@ -18,8 +18,8 @@ const MenuNavigator = () => {
 
   const navigation = useNavigation();
   const { isOpen, onToggle, onClose } = useDisclose();
-  const onNavigate = (root) => {
-    navigation.navigate(root, { isNew: true });
+  const onNavigate = (root, type) => {
+    navigation.navigate(root, { type: type, isNew: true });
   };
   return (
     <Center>
@@ -107,6 +107,10 @@ const MenuNavigator = () => {
                 {languages.tasks}
               </Text>
               <IconButton
+                onPress={() => {
+                  onToggle();
+                  onNavigate("NewTask", "notes");
+                }}
                 p={3}
                 mb='4'
                 variant='solid'
@@ -144,7 +148,7 @@ const MenuNavigator = () => {
                 p={3}
                 onPress={() => {
                   onToggle();
-                  onNavigate("NewTask");
+                  onNavigate("NewTask", "tasks");
                 }}
                 mb='4'
                 variant='solid'

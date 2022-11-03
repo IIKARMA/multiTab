@@ -127,7 +127,7 @@ const HomeNavigator = () => {
       <Screen
         name='ItemList'
         component={ItemListScreen}
-        options={{
+        options={({ route }) => ({
           headerRight: () => (
             <TouchableOpacity style={{ paddingRight: 8 }}>
               <Icon
@@ -139,7 +139,7 @@ const HomeNavigator = () => {
             </TouchableOpacity>
           ),
 
-          title: "Нотатки",
+          title: route.params.title,
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
@@ -151,7 +151,7 @@ const HomeNavigator = () => {
           gestureEnabled: true,
           cardOverlayEnabled: true,
           ...TransitionPresets.SlideFromRightIOS
-        }}
+        })}
       />
     </Navigator>
   );

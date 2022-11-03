@@ -5,6 +5,8 @@ import { theme } from "../../core/colors";
 import { useRoute } from "@react-navigation/native";
 const NewTask = ({
   isDone,
+  priority,
+  editingNoteTC,
   notes,
   languages,
   createNotes,
@@ -24,6 +26,8 @@ const NewTask = ({
   return (
     <View style={{ backgroundColor: theme.card }}>
       <CreateTask
+        editingNoteTC={editingNoteTC}
+        priority={priority}
         createNotes={createNotes}
         type={type}
         languages={languages}

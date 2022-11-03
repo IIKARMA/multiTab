@@ -41,11 +41,13 @@ export const styles = StyleSheet.create({
     height: 240
   },
   card: {
+    overflow: "scroll",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-evenly",
     alignSelf: "center",
-    width: "95%",
-    height: 120
+    width: "95%"
+
+    // maxHeight: 140
   }
 });

@@ -48,3 +48,28 @@ export const completedNotes = (id) => async (dispatch) => {
   await AsyncStorage.setItem(`@notes`, JSON.stringify(newArr));
   dispatch(setNotes(newArr));
 };
+export const editingNoteTC = (note, id) => async (dispatch) => {
+  const storageNotes = JSON.parse(await AsyncStorage.getItem(`@notes`));
+  const editingNotes = storageNotes.map((oldNotes) => {
+    if (oldNotes.id === id) {
+      oldNotes.heading = note?.heading;
+      oldNotes.note = note?.note;
+      oldNotes.background = note?.background;
+      oldNotes.activeTags = note?.activeTags;
+      oldNotes.selectDate = note?.selectDate;
+      oldNotes.selectTime = note?.selectTime;
+      oldNotes.priority = note?.priority;
+    }
+    return oldNotes;
+  });
+  await AsyncStorage.setItem("@notes", JSON.stringify(editingNotes));
+  dispatch(setNotes(editingNotes));
+};
+export const removeNotesTC = (id) => async (dispatch) => {
+  const storageNotes = JSON.parse(await AsyncStorage.getItem("@notes"));
+  const updatedNotes = storageNotes.filter(
+    (note) => note.id.toString() !== id.toString()
+  );
+  await AsyncStorage.setItem("@notes", JSON.stringify(updatedNotes));
+  dispatch(setNotes(updatedNotes));
+};

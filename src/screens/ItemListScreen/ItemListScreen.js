@@ -8,7 +8,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  Box
+  Box,
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./style";
@@ -20,7 +21,7 @@ moment.locale("uk");
 const Item = ({ item }) => {
   return (
     <View>
-      <TouchableOpacity
+      <View
         style={[
           styles.card,
           styles.item,
@@ -62,7 +63,7 @@ const Item = ({ item }) => {
             </Text>
           )}
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };

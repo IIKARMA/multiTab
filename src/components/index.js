@@ -1,8 +1,9 @@
 export { default as CustomItem } from "./CustomItem";
 export { default as CustomModal } from "./CustomModal";
 export { default as CustomButton } from "./CustomButton";
-export { default as CustomCalendar } from "./CustomCalendar/CustomCalendar";
 export { default as CustomSwatcherColor } from "./CustomSwatcherColor/CustomSwatcherColor";
+export { default as CustomCalendar } from "./CustomCalendar/CustomCalendar";
+export { default as CustomPriority } from "./CustomPriority/CustomPriority";
 export { default as CustomSelectTag } from "./CustomSelectTag/CustomSelectTag";
 export { default as CustomTimePicker } from "./CustomTimePicker/CustomTimePicker";
 

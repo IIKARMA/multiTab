@@ -52,6 +52,8 @@ const iconsTask = [
 ];
 const CreateTask = ({
   type,
+  editingNoteTC,
+  priority,
   createNotes,
   isDone,
   languages,
@@ -78,7 +80,9 @@ const CreateTask = ({
   const [activeTag, setActiveTag] = useState(
     (editTask && editTask.activeTags) || []
   );
-
+  const [selectPriority, setSelectPriority] = useState(
+    (editTask && editTask.priority) || {}
+  );
   const [selectBG, setSelectBG] = useState(
     (editTask && editTask.background) || theme.card
   );
@@ -113,9 +117,9 @@ const CreateTask = ({
       selectTime: selectTime
     };
 
-    if (isNew) {
-      dispatch(createTask(payload));
-    } else dispatch(editingTaskTC(payload, editTask.id));
+    isNew
+      ? dispatch(createTask(payload))
+      : dispatch(editingTaskTC(payload, editTask.id));
     Keyboard.dismiss();
     dispatch(setDisableCompleted(false));
     dispatch(setIsDone(!isDone));
@@ -126,12 +130,14 @@ const CreateTask = ({
       completed: false,
       activeTags: activeTag,
       difficulty: "Найвища",
-      prioritet: "4",
+      priority: selectPriority,
       selectDate: selectDate,
       selectTime: selectTime
     };
 
-    isNew && dispatch(createNotes(payload));
+    isNew
+      ? dispatch(createNotes(payload))
+      : dispatch(editingNoteTC(payload, editTask.id));
 
     Keyboard.dismiss();
     dispatch(setDisableCompleted(false));
@@ -227,23 +233,27 @@ const CreateTask = ({
                         onPress={() => openModal(dispatch, value.name)}
                         key={value.id.toString()}
                         mb='2'
-                        variant='solid'
-                        bg='coolGray.700'
                         colorScheme='coolGray'
+                        bgColor={
+                          value.name === "flag"
+                            ? selectPriority.selectColor
+                            : "coolGray.700"
+                        }
                         borderRadius='xl'
                         leftIcon={
                           <Icon
                             as={MaterialCommunityIcons}
                             size='6'
                             name={value.name}
-                            _dark={{
-                              color: "warmGray.50"
-                            }}
                             color={
                               value.name === "palette"
                                 ? selectBG === "rgba(54,58,75,0.6)"
                                   ? "warmGray.50"
                                   : selectBG
+                                : value.name === "flag"
+                                ? selectPriority.color
+                                  ? selectPriority.color
+                                  : "warmGray.50"
                                 : "warmGray.50"
                             }
                           />
@@ -286,6 +296,9 @@ const CreateTask = ({
             <View style={{ paddingHorizontal: 15 }}>
               {visibleModal && (
                 <CustomModal
+                  priority={priority}
+                  selectPriority={selectPriority}
+                  setSelectPriority={setSelectPriority}
                   isDatePickerVisible={isDatePickerVisible}
                   setDatePickerVisibility={setDatePickerVisibility}
                   setSelectTime={setSelectTime}

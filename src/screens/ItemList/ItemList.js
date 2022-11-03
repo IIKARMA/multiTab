@@ -16,7 +16,12 @@ const ItemList = ({ navigation, items, languages, type }) => {
         <View style={styles.headerContainer}>
           <TouchableOpacity
             style={styles.box}
-            onPress={() => navigation.navigate("ItemList", { items: items })}>
+            onPress={() =>
+              navigation.navigate("ItemList", {
+                title: type === "tasks" ? languages.notes : languages.tasks,
+                items: items
+              })
+            }>
             <Icon
               as={MaterialCommunityIcons}
               size='6'
@@ -26,7 +31,7 @@ const ItemList = ({ navigation, items, languages, type }) => {
             <Text style={styles.headerText}>
               {type === "notes" ? languages.tasks : languages.notes}
             </Text>
-            {type === "notes" && (
+            {type === "notes" && listTasks.length > 0 && (
               <View style={styles.completedCount}>
                 <Text style={[styles.textItem, { fontSize: 14 }]}>
                   {listTasks.filter((item) => item.completed).length}/
@@ -47,7 +52,12 @@ const ItemList = ({ navigation, items, languages, type }) => {
               <Text style={styles.addText}>{languages.add}</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate("ItemList", { items: items })}>
+              onPress={() =>
+                navigation.navigate("ItemList", {
+                  title: type === "tasks" ? languages.notes : languages.tasks,
+                  items: items
+                })
+              }>
               <Icon
                 as={MaterialCommunityIcons}
                 size='6'

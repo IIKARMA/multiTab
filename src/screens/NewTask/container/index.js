@@ -8,7 +8,11 @@ import {
   editingTaskTC,
   setTask
 } from "../../../redux/reducers/tasksReducer";
-import { createNotes } from "../../../redux/reducers/notesReducer";
+import {
+  editingNoteTC,
+  createNotes,
+  getNotes
+} from "../../../redux/reducers/notesReducer";
 import {
   setVisibleModalTC,
   setDisableCompleted,
@@ -27,6 +31,7 @@ const mapStateToProps = ({ tasks, directory, app, notes }) => ({
   notes: notes,
   visibleModal: directory.visibleModal,
   tags: directory.tags,
+  priority: directory.priority,
   completed: directory.completed,
   isDone: directory.isDone
 });
@@ -39,35 +44,48 @@ export default connect(mapStateToProps, {
   setDisableCompleted,
   setTask,
   getInfo
-})(({ tasks, visibleModal, tags, completed, isDone, notes, languages }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
+})(
+  ({
+    tasks,
+    visibleModal,
+    tags,
+    completed,
+    priority,
+    isDone,
+    notes,
+    languages
+  }) => {
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getInfo("tags"));
-    dispatch(getInfo("notes"));
-    dispatch(getInfo("tasks"));
+    useEffect(() => {
+      dispatch(getInfo("tags"));
+      dispatch(getNotes());
+      dispatch(getInfo("tasks"));
 
-    const unsubscribe = navigation.addListener("focus", () => {
-      return unsubscribe;
-    });
-  }, []);
+      const unsubscribe = navigation.addListener("focus", () => {
+        return unsubscribe;
+      });
+    }, []);
 
-  return (
-    <NewTask
-      notes={notes}
-      createNotes={createNotes}
-      languages={languages}
-      isDone={isDone}
-      setDisableCompleted={setDisableCompleted}
-      completed={completed}
-      tasks={tasks}
-      tags={tags}
-      setVisibleModalTC={setVisibleModalTC}
-      visibleModal={visibleModal}
-      navigation={navigation}
-      editingTaskTC={editingTaskTC}
-      createTask={createTask}
-    />
-  );
-});
+    return (
+      <NewTask
+        editingNoteTC={editingNoteTC}
+        priority={priority}
+        notes={notes}
+        createNotes={createNotes}
+        languages={languages}
+        isDone={isDone}
+        setDisableCompleted={setDisableCompleted}
+        completed={completed}
+        tasks={tasks}
+        tags={tags}
+        setVisibleModalTC={setVisibleModalTC}
+        visibleModal={visibleModal}
+        navigation={navigation}
+        editingTaskTC={editingTaskTC}
+        createTask={createTask}
+      />
+    );
+  }
+);

@@ -5,11 +5,15 @@ import {
   CustomCalendar,
   CustomSelectTag,
   CustomSwatcherColor,
-  CustomTimePicker
+  CustomTimePicker,
+  CustomPriority
 } from "../";
 
 import { useDispatch } from "react-redux";
 const CustomModal = ({
+  setSelectPriority,
+  priority,
+  selectPriority,
   setDatePickerVisibility,
   isDatePickerVisible,
   languages,
@@ -75,6 +79,15 @@ const CustomModal = ({
             selectColor={selectColor}
             setSelectColor={setSelectColor}
             theme={theme}
+          />
+        );
+      case "flag":
+        return (
+          <CustomPriority
+            closeModal={closeModal}
+            priority={priority}
+            selectPriority={selectPriority}
+            setSelectPriority={setSelectPriority}
           />
         );
       default:

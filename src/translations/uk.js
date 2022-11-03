@@ -11,6 +11,7 @@ export const uk = {
   bg: "Колір фону",
   tag: "Тег",
   add_tag: "Cтворити тег",
-  onToday: "На сьогдгі",
-  onTomorrow: "На завтра"
+  onToday: "На сьогдні",
+  onTomorrow: "На завтра",
+  prorityValue: ["Не важлива", "Обична", "Важлива", "Найважливіша"]
 };

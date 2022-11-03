@@ -4,7 +4,10 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Menu, Pressable, Text, Box, Container, VStack } from "native-base";
 import { useDispatch } from "react-redux";
 import { removeTaskTC, editingTaskTC } from "../../redux/reducers/tasksReducer";
-import { completedNotes } from "../../redux/reducers/notesReducer";
+import {
+  removeNotesTC,
+  completedNotes
+} from "../../redux/reducers/notesReducer";
 import Checkbox from "expo-checkbox";
 
 const CustomItem = ({
@@ -16,6 +19,7 @@ const CustomItem = ({
   background,
   activeTags,
   selectDate,
+  priority,
   selectTime,
   navigation,
   languages
@@ -36,16 +40,34 @@ const CustomItem = ({
         shadow={5}
         trigger={(triggerProps) => {
           return type === "notes" ? (
-            <TouchableOpacity style={styles.section}>
-              <Checkbox
-                style={styles.checkbox}
-                value={completed}
-                onValueChange={onCompleted}
-              />
-              <Text style={styles.text} strikeThrough={completed}>
-                {heading}
-              </Text>
-            </TouchableOpacity>
+            <Pressable
+              accessibilityLabel='More options menu'
+              {...triggerProps}
+              key={id}>
+              <View style={styles.section}>
+                <View style={{ flexDirection: "row" }}>
+                  <Checkbox
+                    style={styles.checkbox}
+                    value={completed}
+                    onValueChange={onCompleted}
+                  />
+                  <Text style={styles.text} strikeThrough={completed}>
+                    {heading}
+                  </Text>
+                </View>
+
+                <Text
+                  style={[
+                    styles.priorityText,
+                    {
+                      color: priority && priority.color,
+                      backgroundColor: priority && priority.selectColor
+                    }
+                  ]}>
+                  {priority && priority.value}
+                </Text>
+              </View>
+            </Pressable>
           ) : (
             <Pressable
               accessibilityLabel='More options menu'
@@ -91,6 +113,7 @@ const CustomItem = ({
                 heading,
                 background,
                 activeTags,
+                priority,
                 selectDate,
                 selectTime
               }
@@ -98,10 +121,19 @@ const CustomItem = ({
           }>
           <Text color={theme.text}>{languages.edit}</Text>
         </Menu.Item>
-        {/* <Menu.Item onPress={() => setVisibleModalTC(true)}>
-          <Text color={theme.text}>Изменить цвет</Text>
-        </Menu.Item> */}
-        <Menu.Item onPress={() => dispatch(removeTaskTC(id))}>
+        {type === "notes" && (
+          <Menu.Item onPress={onCompleted}>
+            <Text color={theme.text}>
+              {!completed ? "Виконати" : "Не виконано"}
+            </Text>
+          </Menu.Item>
+        )}
+        <Menu.Item
+          onPress={() =>
+            type === "tasks"
+              ? dispatch(removeTaskTC(id))
+              : dispatch(removeNotesTC(id))
+          }>
           <Text color={theme.text}>{languages.delete}</Text>
         </Menu.Item>
       </Menu>
@@ -110,16 +142,27 @@ const CustomItem = ({
 };
 export default CustomItem;
 const styles = StyleSheet.create({
+  priorityText: {
+    overflow: "hidden",
+    fontWeight: "bold",
+    marginLeft: 20,
+    marginTop: 5,
+    textAlign: "center",
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    fontSize: 12
+  },
   container: {
     flex: 1,
     marginHorizontal: 16,
     marginVertical: 32
   },
   section: {
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: "column",
+    alignItems: "flex-start"
   },
   text: {
+    maxWidth: "100%",
     color: theme.secondText,
     fontSize: 18,
     fontWeight: "500",

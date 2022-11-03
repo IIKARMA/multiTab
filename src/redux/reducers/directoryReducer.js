@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { uk } from "../../translations/uk";
 const SET_DISABLE_COMPLETED = "directory/SET_DISABLE_COMPLETED";
 const SET_IS_DONE = "directory/SET_IS_DONE";
 const SET_VISIBLE_MODAL = "directory/SET_VISIBLE_MODAL";
@@ -16,6 +17,32 @@ export const initialState = {
     },
     { id: 2, value: "#Дом", color: "#FF8E86" },
     { id: 3, value: "#Інше", color: "#167D7F" }
+  ],
+  priority: [
+    {
+      id: 0,
+      value: uk.prorityValue[0],
+      color: "#1CFEBA",
+      selectColor: "#1CFEB04A"
+    },
+    {
+      id: 1,
+      value: uk.prorityValue[1],
+      color: "#6CCFF6",
+      selectColor: "#6CCFF046"
+    },
+    {
+      id: 2,
+      value: uk.prorityValue[2],
+      color: "#FFA62B",
+      selectColor: "#FFA6204B"
+    },
+    {
+      id: 3,
+      value: uk.prorityValue[3],
+      color: "#D62839",
+      selectColor: "#D6283049"
+    }
   ]
 };
 export const directoryReducer = (state = initialState, action) => {
