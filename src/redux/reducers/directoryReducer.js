@@ -43,6 +43,26 @@ export const initialState = {
       color: "#D62839",
       selectColor: "#D6283049"
     }
+  ],
+  difficulty: [
+    {
+      id: 0,
+      value: uk.difficultyValue[0],
+      color: "#1CFEBA",
+      selectColor: "#1CFEB04A"
+    },
+    {
+      id: 1,
+      value: uk.difficultyValue[1],
+      color: "#6CCFF6",
+      selectColor: "#6CCFF046"
+    },
+    {
+      id: 2,
+      value: uk.difficultyValue[2],
+      color: "#FFA62B",
+      selectColor: "#FFA6204B"
+    }
   ]
 };
 export const directoryReducer = (state = initialState, action) => {
@@ -84,8 +104,9 @@ export const setVisibleModalTC = (isEnable) => ({
   isEnable
 });
 export const setTags = (tags) => ({ type: SET_TAGS, tags });
-export const createDefaultTags = (type) => async (dispatch) => {
-  await AsyncStorage.setItem(`@${type}`, JSON.stringify(initialState[type]));
+export const createDefaultTags = () => async (dispatch) => {
+  await AsyncStorage.setItem(`@tags`, JSON.stringify(initialState["tags"]));
+  // dispatch(setTags([initialState["tags"]]));
 };
 export const getInfo = (type) => async (dispatch) => {
   const storageInfo = JSON.parse(await AsyncStorage.getItem(`@${type}`));

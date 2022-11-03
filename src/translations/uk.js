@@ -13,5 +13,8 @@ export const uk = {
   add_tag: "Cтворити тег",
   onToday: "На сьогдні",
   onTomorrow: "На завтра",
-  prorityValue: ["Не важлива", "Обична", "Важлива", "Найважливіша"]
+  priority: "Приорітет",
+  difficulty: "Складність",
+  prorityValue: ["Не важлива", "Обична", "Важлива", "Найважливіша"],
+  difficultyValue: ["Проста", "Середня", "Складна"]
 };

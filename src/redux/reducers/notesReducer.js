@@ -59,6 +59,7 @@ export const editingNoteTC = (note, id) => async (dispatch) => {
       oldNotes.selectDate = note?.selectDate;
       oldNotes.selectTime = note?.selectTime;
       oldNotes.priority = note?.priority;
+      oldNotes.difficulty = note?.difficulty;
     }
     return oldNotes;
   });

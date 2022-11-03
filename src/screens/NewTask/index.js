@@ -10,6 +10,7 @@ const NewTask = ({
   notes,
   languages,
   createNotes,
+  difficulty,
   background,
   completed,
   setDisableCompleted,
@@ -26,6 +27,7 @@ const NewTask = ({
   return (
     <View style={{ backgroundColor: theme.card }}>
       <CreateTask
+        difficulty={difficulty}
         editingNoteTC={editingNoteTC}
         priority={priority}
         createNotes={createNotes}

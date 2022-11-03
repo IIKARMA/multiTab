@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
   },
   textItem: {},
   tag: {
+    marginRight: 5,
     overflow: "hidden",
     opacity: 0.7,
     alignSelf: "flex-end",
@@ -40,6 +41,7 @@ export const styles = StyleSheet.create({
     width: "45%",
     height: 240
   },
+  checkbox: { borderRadius: 5, marginRight: 7 },
   card: {
     overflow: "scroll",
     flexDirection: "column",

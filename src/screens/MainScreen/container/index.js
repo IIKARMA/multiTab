@@ -19,10 +19,6 @@ export default connect(mapStateToProps, { getInfo })(
   ({ task, notes, languages }) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getInfo("tasks"));
-      dispatch(getNotes());
-    }, []);
 
     useEffect(() => {
       const unsubscribe = navigation.addListener("focus", () => {

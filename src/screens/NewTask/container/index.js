@@ -32,6 +32,7 @@ const mapStateToProps = ({ tasks, directory, app, notes }) => ({
   visibleModal: directory.visibleModal,
   tags: directory.tags,
   priority: directory.priority,
+  difficulty: directory.difficulty,
   completed: directory.completed,
   isDone: directory.isDone
 });
@@ -46,6 +47,7 @@ export default connect(mapStateToProps, {
   getInfo
 })(
   ({
+    difficulty,
     tasks,
     visibleModal,
     tags,
@@ -59,10 +61,6 @@ export default connect(mapStateToProps, {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      dispatch(getInfo("tags"));
-      dispatch(getNotes());
-      dispatch(getInfo("tasks"));
-
       const unsubscribe = navigation.addListener("focus", () => {
         return unsubscribe;
       });
@@ -70,6 +68,7 @@ export default connect(mapStateToProps, {
 
     return (
       <NewTask
+        difficulty={difficulty}
         editingNoteTC={editingNoteTC}
         priority={priority}
         notes={notes}

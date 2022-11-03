@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { theme } from "../../core/colors";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Menu, Pressable, Text, Box, Container, VStack } from "native-base";
+import {
+  Menu,
+  Pressable,
+  Text,
+  Box,
+  Container,
+  VStack,
+  Icon
+} from "native-base";
 import { useDispatch } from "react-redux";
 import { removeTaskTC, editingTaskTC } from "../../redux/reducers/tasksReducer";
 import {
@@ -9,6 +17,7 @@ import {
   completedNotes
 } from "../../redux/reducers/notesReducer";
 import Checkbox from "expo-checkbox";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CustomItem = ({
   type,
@@ -17,6 +26,7 @@ const CustomItem = ({
   completed,
   heading,
   background,
+  difficulty,
   activeTags,
   selectDate,
   priority,
@@ -34,13 +44,16 @@ const CustomItem = ({
     <Box key={id}>
       <Menu
         placement='bottom center'
-        bg={"#333"}
+        bg={"#343434"}
+        borderColor={"coolGray.500"}
+        borderWidth={1}
         color={theme.text}
         // opacity={0.7}
-        shadow={5}
+        shadow='7'
         trigger={(triggerProps) => {
           return type === "notes" ? (
             <Pressable
+              shadow={"5"}
               accessibilityLabel='More options menu'
               {...triggerProps}
               key={id}>
@@ -55,17 +68,32 @@ const CustomItem = ({
                     {heading}
                   </Text>
                 </View>
-
-                <Text
-                  style={[
-                    styles.priorityText,
-                    {
-                      color: priority && priority.color,
-                      backgroundColor: priority && priority.selectColor
-                    }
-                  ]}>
-                  {priority && priority.value}
-                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  {priority.value && (
+                    <Text
+                      style={[
+                        styles.priorityText,
+                        {
+                          color: priority && priority.color,
+                          backgroundColor: priority && priority.selectColor
+                        }
+                      ]}>
+                      {priority.value}
+                    </Text>
+                  )}
+                  {difficulty.value && (
+                    <Text
+                      style={[
+                        styles.priorityText,
+                        {
+                          color: difficulty && difficulty.color,
+                          backgroundColor: difficulty && difficulty.selectColor
+                        }
+                      ]}>
+                      {difficulty.value}
+                    </Text>
+                  )}
+                </View>
               </View>
             </Pressable>
           ) : (
@@ -101,6 +129,7 @@ const CustomItem = ({
           );
         }}>
         <Menu.Item
+          style={{ flexDirection: "row" }}
           opacity={1}
           color={theme.secondText}
           onPress={() =>
@@ -110,6 +139,7 @@ const CustomItem = ({
               task: {
                 id,
                 task,
+                difficulty,
                 heading,
                 background,
                 activeTags,
@@ -119,22 +149,32 @@ const CustomItem = ({
               }
             })
           }>
+          <Icon as={MaterialCommunityIcons} name='pencil' size={"5"} mr='1' />
           <Text color={theme.text}>{languages.edit}</Text>
         </Menu.Item>
         {type === "notes" && (
-          <Menu.Item onPress={onCompleted}>
+          <Menu.Item onPress={onCompleted} style={{ flexDirection: "row" }}>
+            <Icon as={MaterialCommunityIcons} name='check' size={"5"} mr='1' />
             <Text color={theme.text}>
               {!completed ? "Виконати" : "Не виконано"}
             </Text>
           </Menu.Item>
         )}
         <Menu.Item
+          style={{ flexDirection: "row" }}
           onPress={() =>
             type === "tasks"
               ? dispatch(removeTaskTC(id))
               : dispatch(removeNotesTC(id))
           }>
-          <Text color={theme.text}>{languages.delete}</Text>
+          <Icon
+            as={MaterialCommunityIcons}
+            name='delete'
+            size={"5"}
+            color='danger.500'
+            mr='1'
+          />
+          <Text color='danger.500'>{languages.delete}</Text>
         </Menu.Item>
       </Menu>
     </Box>
@@ -145,7 +185,7 @@ const styles = StyleSheet.create({
   priorityText: {
     overflow: "hidden",
     fontWeight: "bold",
-    marginLeft: 20,
+    marginLeft: 10,
     marginTop: 5,
     textAlign: "center",
     paddingHorizontal: 10,

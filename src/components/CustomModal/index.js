@@ -6,11 +6,14 @@ import {
   CustomSelectTag,
   CustomSwatcherColor,
   CustomTimePicker,
-  CustomPriority
+  CustomPriorityAndDifficulty
 } from "../";
 
 import { useDispatch } from "react-redux";
 const CustomModal = ({
+  difficulty,
+  selectDifficulty,
+  setSelectDifficulty,
   setSelectPriority,
   priority,
   selectPriority,
@@ -83,11 +86,24 @@ const CustomModal = ({
         );
       case "flag":
         return (
-          <CustomPriority
+          <CustomPriorityAndDifficulty
+            type={name}
+            languages={languages}
             closeModal={closeModal}
             priority={priority}
             selectPriority={selectPriority}
             setSelectPriority={setSelectPriority}
+          />
+        );
+      case "brain":
+        return (
+          <CustomPriorityAndDifficulty
+            type={name}
+            selectDifficulty={selectDifficulty}
+            setSelectDifficulty={setSelectDifficulty}
+            difficulty={difficulty}
+            languages={languages}
+            closeModal={closeModal}
           />
         );
       default:

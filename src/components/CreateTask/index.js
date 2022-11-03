@@ -52,6 +52,7 @@ const iconsTask = [
 ];
 const CreateTask = ({
   type,
+  difficulty,
   editingNoteTC,
   priority,
   createNotes,
@@ -83,6 +84,12 @@ const CreateTask = ({
   const [selectPriority, setSelectPriority] = useState(
     (editTask && editTask.priority) || {}
   );
+  const [_completed, setCompleted] = useState(
+    (editTask && editTask.completed) || false
+  );
+  const [selectDifficulty, setSelectDifficulty] = useState(
+    (editTask && editTask.difficulty) || {}
+  );
   const [selectBG, setSelectBG] = useState(
     (editTask && editTask.background) || theme.card
   );
@@ -113,7 +120,9 @@ const CreateTask = ({
       task: text,
       activeTags: activeTag,
       background: selectBG,
-      selectDate: selectDate,
+      selectDate: selectDate
+        ? selectDate
+        : moment(new Date()).format("YYYY-MM-DD"),
       selectTime: selectTime
     };
 
@@ -127,11 +136,13 @@ const CreateTask = ({
   const createNewNotes = () => {
     const payload = {
       heading: headerText && headerText,
-      completed: false,
+      completed: _completed,
       activeTags: activeTag,
-      difficulty: "Найвища",
+      difficulty: selectDifficulty,
       priority: selectPriority,
-      selectDate: selectDate,
+      selectDate: selectDate
+        ? selectDate
+        : moment(new Date()).format("YYYY-MM-DD"),
       selectTime: selectTime
     };
 
@@ -233,12 +244,8 @@ const CreateTask = ({
                         onPress={() => openModal(dispatch, value.name)}
                         key={value.id.toString()}
                         mb='2'
-                        colorScheme='coolGray'
-                        bgColor={
-                          value.name === "flag"
-                            ? selectPriority.selectColor
-                            : "coolGray.700"
-                        }
+                        // colorScheme={"coolGray.400"}
+                        bg={"coolGray.700"}
                         borderRadius='xl'
                         leftIcon={
                           <Icon
@@ -253,6 +260,10 @@ const CreateTask = ({
                                 : value.name === "flag"
                                 ? selectPriority.color
                                   ? selectPriority.color
+                                  : "warmGray.50"
+                                : value.name === "brain"
+                                ? selectDifficulty.color
+                                  ? selectDifficulty.color
                                   : "warmGray.50"
                                 : "warmGray.50"
                             }
@@ -296,6 +307,9 @@ const CreateTask = ({
             <View style={{ paddingHorizontal: 15 }}>
               {visibleModal && (
                 <CustomModal
+                  selectDifficulty={selectDifficulty}
+                  setSelectDifficulty={setSelectDifficulty}
+                  difficulty={difficulty}
                   priority={priority}
                   selectPriority={selectPriority}
                   setSelectPriority={setSelectPriority}

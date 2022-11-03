@@ -12,7 +12,7 @@ export const appReducer = (state = initialState, action) => {
     case SET_IS_LAUNCH:
       return {
         ...state,
-        isLaunched: action.isEnable
+        isLaunched: action.isLaunched
       };
     case SET_LANGUAGES:
       return {
@@ -24,11 +24,20 @@ export const appReducer = (state = initialState, action) => {
   }
 };
 
-export const setIsLauched = (isEnable) => ({
+export const setIsLaunched = (isLaunched) => ({
   type: SET_IS_LAUNCH,
-  isEnable
+  isLaunched
 });
 export const setLanguages = (languages) => ({
   type: SET_LANGUAGES,
   languages
 });
+export const setIsLauchedTC = () => async (dispatch) => {
+  const appLaunched = await AsyncStorage.getItem("@appLaunched_key");
+
+  if (!appLaunched) {
+    await AsyncStorage.setItem("@appLaunched_key", "true");
+    dispatch(setIsLaunched(true));
+  }
+  dispatch(setIsLaunched(!!appLaunched));
+};
