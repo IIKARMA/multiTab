@@ -12,11 +12,11 @@ export const initialState = {
   tags: [
     {
       id: 1,
-      value: "#Робота",
+      value: uk.tagsValue[0],
       color: "#AC8AEF"
     },
-    { id: 2, value: "#Дом", color: "#FF8E86" },
-    { id: 3, value: "#Інше", color: "#167D7F" }
+    { id: 2, value: uk.tagsValue[1], color: "#FF8E86" },
+    { id: 3, value: uk.tagsValue[2], color: "#167D7F" }
   ],
   priority: [
     {

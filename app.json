@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "multiTab",
-    "slug": "tttoDoList",
-    "version": "1.2.0",
+    "name": "multiTask",
+    "slug": "multiTask",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -25,10 +25,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.karmaiii.toDoList"
+      "versionCode": 2,
+      "package": "task.notes.note.tasks.karma.multiTask"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "698a597d-8dd5-42c5-bf87-56b72310f372"
+      }
     }
   }
 }

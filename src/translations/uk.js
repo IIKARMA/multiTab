@@ -1,8 +1,8 @@
 export const uk = {
   tasks: "Задачі",
   notes: "Нотатки",
-  add: "Добавити",
-  pomodoro: "Помодоро",
+  add: "Додати",
+  pomodoro: "Pomodoro",
   edit: "Редагувати",
   delete: "Видалити",
   new_note: "Нова замітка",
@@ -11,10 +11,11 @@ export const uk = {
   bg: "Колір фону",
   tag: "Тег",
   add_tag: "Cтворити тег",
-  onToday: "На сьогдні",
+  onToday: "На сьогодні",
   onTomorrow: "На завтра",
-  priority: "Приорітет",
-  difficulty: "Складність",
-  prorityValue: ["Не важлива", "Обична", "Важлива", "Найважливіша"],
-  difficultyValue: ["Проста", "Середня", "Складна"]
+  priority: "Приорітет задачі",
+  difficulty: "Складність задачі",
+  prorityValue: ["Нетермінова", "Звичайня", "Важлива", "Невідкладна"],
+  difficultyValue: ["Проста", "Середня", "Складна"],
+  tagsValue: ["#Робота", "#Дім", "#Інше"]
 };

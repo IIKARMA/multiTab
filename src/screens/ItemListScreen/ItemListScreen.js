@@ -7,10 +7,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./style";
 import { theme } from "../../core/colors";
 import moment from "moment";
+import { completedNotes } from "../../redux/reducers/notesReducer";
+import { useDispatch } from "react-redux";
 require("moment/min/locales.min");
 moment.locale("uk");
 
-const Item = ({ item, type }) => {
+const Item = ({ item, type, dispatch }) => {
+  const onCompleted = () => {
+    dispatch(completedNotes(item.item.id));
+  };
+
   return (
     <View>
       <View
@@ -27,7 +33,11 @@ const Item = ({ item, type }) => {
             }
           }>
           {type === "Задачі" && (
-            <Checkbox style={styles.checkbox} value={item.item?.completed} />
+            <Checkbox
+              style={styles.checkbox}
+              value={item.item.completed}
+              onValueChange={onCompleted}
+            />
           )}
           <Text style={[styles.text, { fontWeight: "bold" }]}>
             {item.item.heading}
@@ -99,8 +109,8 @@ const Item = ({ item, type }) => {
 };
 
 const ItemListScreen = () => {
+  const dispatch = useDispatch();
   const { items, title } = useRoute().params;
-  console.log(title);
   const [userItems, setUserItems] = useState([]);
   useEffect(() => {
     let data = items?.reduce((acc, curr) => {
@@ -121,7 +131,9 @@ const ItemListScreen = () => {
       <SectionList
         sections={userItems || []}
         keyExtractor={(item, index) => item + index}
-        renderItem={(data) => <Item item={data} type={title} />}
+        renderItem={(data) => (
+          <Item item={data} type={title} dispatch={dispatch} />
+        )}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={[styles.date, styles.text]}>
             {moment(title).isValid() &&

@@ -35,7 +35,6 @@ const CustomItem = ({
   languages
 }) => {
   const dispatch = useDispatch();
-  const [isChecked, setChecked] = useState();
   const onCompleted = () => {
     dispatch(completedNotes(id));
   };
