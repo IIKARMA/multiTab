@@ -19,15 +19,12 @@ export const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
+
     marginVertical: 5,
     borderRadius: 10,
     backgroundColor: theme.navigator
   },
-  text: {
-    color: theme.text,
-    fontSize: 16,
-    padding: 7
-  },
+  text: { marginBottom: 10, color: theme.text, fontSize: 16, padding: 7 },
   date: {
     marginVertical: 2,
     alignSelf: "center",

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dimensions } from "react-native";
 import { Modal, Center, View, theme } from "native-base";
 import {
+  CustomCard,
   CustomCalendar,
   CustomSelectTag,
   CustomSwatcherColor,
@@ -106,6 +107,7 @@ const CustomModal = ({
             closeModal={closeModal}
           />
         );
+
       default:
         return;
     }

@@ -1,12 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { Text, TextInput, Dimensions, Keyboard } from "react-native";
-import { Icon, IconButton, HStack } from "native-base";
+import React, { useState, useEffect, useCallback } from "react";
+import { TextInput, AccessibilityInfo, Keyboard } from "react-native";
+import {
+  Icon,
+  VStack,
+  IconButton,
+  HStack,
+  useToast,
+  Box,
+  Center,
+  theme
+} from "native-base";
+import { CustomToast } from "..";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createTags } from "../../redux/reducers/directoryReducer";
 import { useDispatch } from "react-redux";
+import { styles } from "./style";
 const CreateTag = ({ languages }) => {
   const dispatch = useDispatch();
+  const [visibleToast, setvisibleToast] = useState(false);
+
+  useEffect(() => setvisibleToast(false), [visibleToast]);
+
+  const handleButtonPress = () => {
+    setvisibleToast(true);
+  };
+
   const [text, setText] = useState("");
+  const toast = useToast();
+
   const pressHandler = () => {
     const payload = {
       value: `#${text}`,
@@ -16,44 +37,60 @@ const CreateTag = ({ languages }) => {
     setText("");
     Keyboard.dismiss();
   };
+
   return (
-    <HStack space={5} style={{ alignItems: "center" }}>
-      <TextInput
-        value={text}
-        onChangeText={(text) => setText(text)}
-        placeholderTextColor='#fff'
-        placeholder={languages.add_tag}
-        style={{
-          paddingVertical: 10,
-          color: "#fff",
-          width: "85%",
-          borderRadius: 10,
-          paddingHorizontal: 10,
-          backgroundColor: "#2D3142",
-          marginBottom: 30
-        }}
+    <VStack>
+      <HStack space={5} style={{ alignItems: "center" }}>
+        <TextInput
+          value={text}
+          onChangeText={(text) => setText(text)}
+          placeholderTextColor='#fff'
+          placeholder={languages.add_tag}
+          style={styles.textInput}
+        />
+        <IconButton
+          onPress={
+            text.length !== 0
+              ? pressHandler
+              : () =>
+                  toast.show({
+                    placement: "top",
+                    render: () => {
+                      return (
+                        <Box
+                          borderRadius={5}
+                          background={"danger.700"}
+                          px='2'
+                          py='2'
+                          _text={{ color: "#fff", fontSize: "lg" }}
+                          mb={5555}>
+                          Введіть назву тегу
+                        </Box>
+                      );
+                    }
+                  })
+          }
+          p={2}
+          mb='8'
+          // variant='solid'
+          bg='#138382'
+          colorScheme='coolGray'
+          borderRadius='full'
+          icon={
+            <Icon
+              as={MaterialCommunityIcons}
+              size='5'
+              name={"plus"}
+              color='warmGray.50'
+            />
+          }
+        />
+      </HStack>
+      <CustomToast
+        visible={visibleToast}
+        message='Потрібео написати назву тегу'
       />
-      <IconButton
-        onPress={pressHandler}
-        p={2}
-        mb='8'
-        variant='solid'
-        bg='#138382'
-        colorScheme='coolGray'
-        borderRadius='full'
-        icon={
-          <Icon
-            as={MaterialCommunityIcons}
-            size='5'
-            name={"plus"}
-            _dark={{
-              color: "warmGray.50"
-            }}
-            color='warmGray.50'
-          />
-        }
-      />
-    </HStack>
+    </VStack>
   );
 };
 export default CreateTag;

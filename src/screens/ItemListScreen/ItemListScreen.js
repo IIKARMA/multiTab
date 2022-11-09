@@ -9,6 +9,7 @@ import { theme } from "../../core/colors";
 import moment from "moment";
 import { completedNotes } from "../../redux/reducers/notesReducer";
 import { useDispatch } from "react-redux";
+import { EmptyBlock } from "../../components";
 require("moment/min/locales.min");
 moment.locale("uk");
 
@@ -108,11 +109,11 @@ const Item = ({ item, type, dispatch }) => {
   );
 };
 
-const ItemListScreen = () => {
+const ItemListScreen = ({ title, items, languages }) => {
+  console.log(items);
   const dispatch = useDispatch();
-  const { items, title } = useRoute().params;
   const [userItems, setUserItems] = useState([]);
-  useEffect(() => {
+  const createDataList = () => {
     let data = items?.reduce((acc, curr) => {
       const key = curr["selectDate"];
       const value = acc[key] ? [...acc[key], curr] : [curr];
@@ -125,24 +126,31 @@ const ItemListScreen = () => {
     }
 
     setUserItems(dat);
+  };
+  useEffect(() => {
+    createDataList();
   }, [items]);
   return (
     <SafeAreaView style={styles.container}>
-      <SectionList
-        sections={userItems || []}
-        keyExtractor={(item, index) => item + index}
-        renderItem={(data) => (
-          <Item item={data} type={title} dispatch={dispatch} />
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={[styles.date, styles.text]}>
-            {moment(title).isValid() &&
-              `${moment(title).format("dddd,").toUpperCase()}${moment(
-                title
-              ).format(" DD MMM.")}`}
-          </Text>
-        )}
-      />
+      {userItems.length > 0 ? (
+        <SectionList
+          sections={userItems || []}
+          keyExtractor={(item, index) => item + index}
+          renderItem={(data) => (
+            <Item item={data} type={title} dispatch={dispatch} />
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={[styles.date, styles.text]}>
+              {moment(title).isValid() &&
+                `${moment(title).format("dddd,").toUpperCase()}${moment(
+                  title
+                ).format(" DD MMM.")}`}
+            </Text>
+          )}
+        />
+      ) : (
+        <EmptyBlock />
+      )}
     </SafeAreaView>
   );
 };

@@ -18,7 +18,13 @@ import {
 } from "../../redux/reducers/notesReducer";
 import Checkbox from "expo-checkbox";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import { HoldItem } from "react-native-hold-menu";
+const MenuItems = [
+  { text: "Actions", icon: "home", isTitle: true, onPress: () => {} },
+  { text: "Action 1", icon: "edit", onPress: () => {} },
+  { text: "Action 2", icon: "map-pin", withSeparator: true, onPress: () => {} },
+  { text: "Action 3", icon: "trash", isDestructive: true, onPress: () => {} }
+];
 const CustomItem = ({
   type,
   id,
@@ -94,6 +100,7 @@ const CustomItem = ({
                   )}
                 </View>
               </View>
+              {/* </HoldItem> */}
             </Pressable>
           ) : (
             <Pressable

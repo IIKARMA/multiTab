@@ -4,10 +4,15 @@ import { Icon } from "native-base";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import Timer from "../Timer/Timer";
+import CustomModal from "../CustomModal";
+import CustomCard from "../CustomCard/CustomCard";
 const PomodoroBlock = ({ languages }) => {
   const [play, setPlay] = useState(false);
+  const [duration, setDuration] = useState(12);
+
   const startPomodoro = () => {
     setPlay(!play);
+    setDuration(12);
   };
   return (
     <View style={styles.container}>
@@ -32,7 +37,7 @@ const PomodoroBlock = ({ languages }) => {
       </View>
 
       <View style={styles.body}>
-        <Timer duration={10} play={play} startPomodoro={startPomodoro} />
+        <Timer duration={duration} play={play} startPomodoro={startPomodoro} />
         <TouchableOpacity onPress={startPomodoro} style={styles.buttonPlay}>
           <Icon
             as={MaterialCommunityIcons}

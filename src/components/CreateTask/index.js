@@ -254,7 +254,7 @@ const CreateTask = ({
                             name={value.name}
                             color={
                               value.name === "palette"
-                                ? selectBG === "rgba(54,58,75,0.6)"
+                                ? selectBG === theme.card
                                   ? "warmGray.50"
                                   : selectBG
                                 : value.name === "flag"

@@ -64,7 +64,7 @@ const HomeNavigator = () => {
           header: ({ route }) => (
             <View>
               <NativeBaseProvider>
-                <BlurView tint='dark' intensity={60}>
+                <BlurView tint='dark' intensity={100}>
                   <View
                     style={{
                       paddingTop: 10,
