@@ -26,14 +26,14 @@
         "backgroundColor": "#FFFFFF"
       },
       "versionCode": 2,
-      "package": "task.notes.note.tasks.karma.multiTask"
+      "package": " "
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "698a597d-8dd5-42c5-bf87-56b72310f372"
+        "projectId": " "
       }
     }
   }
