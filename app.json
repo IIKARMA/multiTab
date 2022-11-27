@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "task.notes.note.tasks.karma.multi.task"
+      "bundleIdentifier": " "
     },
     "android": {
       "permissions": [],
@@ -28,14 +28,14 @@
         "backgroundColor": "#FFFFFF"
       },
       "versionCode": 2,
-      "package": "task.notes.note.tasks.karma.multi.task"
+      "package": " k"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "620f1f9e-e8d2-4f0d-95b3-fe0aec85b812"
+        "projectId": " "
       }
     }
   }
