@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "my-multi-task",
-    "slug": "my-multi-task",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "name": "MultiTask",
+    "slug": "Mmy-multi-task",
+    "version": "1.1.0",
+    "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,16 +18,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "task.notes.note.tasks.karma.multi.task"
     },
     "android": {
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 2,
+      "package": "task.notes.note.tasks.karma.multi.task"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "620f1f9e-e8d2-4f0d-95b3-fe0aec85b812"
+      }
     }
   }
 }

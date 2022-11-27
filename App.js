@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import * as React from "react";
+import { Provider } from "react-redux";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { LaunchScreen } from "./src/screens/index";
+import store from "./src/redux/store/store";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { NativeBaseProvider } from "native-base";
+import { SheetProvider } from "react-native-actions-sheet";
+import "./src/components/CustomActionSheet/sheet";
+import "./src/components/SettingsActionSheet/sheet";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<Provider store={store}>
+			<NativeBaseProvider>
+				<SafeAreaProvider>
+					<NavigationContainer>
+						<SheetProvider>
+							<LaunchScreen />
+						</SheetProvider>
+					</NavigationContainer>
+					<StatusBar style='auto' />
+				</SafeAreaProvider>
+			</NativeBaseProvider>
+		</Provider>
+	);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
